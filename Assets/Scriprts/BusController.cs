@@ -16,7 +16,7 @@ public class BusController : MonoBehaviour
     public Transform rearLeftWheelModel;
     public Transform rearRightWheelModel;
     public Transform exitpoint;
-
+    public int currentStopIndex = -1; // Индекс текущей остановки
 
     private Rigidbody rb;
     public float maxSteerAngle = 30f;  // Максимальный угол поворота колес
@@ -59,6 +59,10 @@ public class BusController : MonoBehaviour
         UpdateWheelPosition(frontRightWheel, frontRightWheelModel);
         UpdateWheelPosition(rearLeftWheel, rearLeftWheelModel);
         UpdateWheelPosition(rearRightWheel, rearRightWheelModel);
+        if (currentStopIndex != -1)
+        {
+            Debug.Log("Текущая остановка: " + currentStopIndex);
+        }
     }
 
     // Метод для переключения состояния дверей...........................................................................................................................................................................................................

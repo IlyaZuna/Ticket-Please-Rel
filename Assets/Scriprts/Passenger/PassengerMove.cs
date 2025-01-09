@@ -8,23 +8,22 @@ public class PassengerMove : MonoBehaviour
     [SerializeField] private int stayIndex = 0; // Индекс точки, где капсула останавливается
     private KeyCode releaseKey = KeyCode.Return; // Клавиша для выхода из ожидания
 
-    private Transform targetPoint; // Текущая цель
+    private Transform targetPoint = null; // Текущая цель
     private Point[] points; // Массив точек
     private Point2[] points2; // Массив точек
     private Point3[] points3; // Массив точек
     private int currentIndex = 0; // Текущий индекс точки
     private int RowExit = -1;
     private int change = 0;
+    public float rotationSpeed = 5f;
     public int driverChange;
-    private Animator animator;
 
     private bool isWaiting = false; // Флаг ожидания на точке
-    private bool seat = false;
-    private bool AnimSeat = false;   
+    private bool seat = false;   
     private bool MoneyGive = false;
     [SerializeField] private bool _Inbus = true;
     [SerializeField] private bool _Outbus = false;
-
+    [SerializeField]public AnimBase animator;
     [SerializeField] private Transform childObject;
     [SerializeField] private Transform parentObject;// Оплатил ли пассажир
     [SerializeField]private GameObject[] billPrefabs; // Массив префабов для купюр
@@ -37,6 +36,8 @@ public class PassengerMove : MonoBehaviour
     private BusController busController;
     public bool _isAtBusStop;
     public bool _areDoorsOpen;
+    private bool seattrue = false;
+    private int _indexBusStop;
     void Start()
     {
         // Находим все точки в сцене и сортируем их по индексу
@@ -48,12 +49,13 @@ public class PassengerMove : MonoBehaviour
         System.Array.Sort(points3, (a, b) => a.Index.CompareTo(b.Index));
         busStopTrigger = FindObjectOfType<BusStopTrigger>();
         busController = FindObjectOfType<BusController>();
-        animator = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
     void Update()
-    { if (_isAtBusStop && _areDoorsOpen)
+    { 
+        if (_isAtBusStop && _areDoorsOpen)
         {
             if (_Inbus)
             {
@@ -61,15 +63,42 @@ public class PassengerMove : MonoBehaviour
             }
             if (_Outbus)
             {
-                Debug.Log("Выход");
+                
                 Outbus();
             }
+        }       
+        if(targetPoint == null && !seattrue)
+        {
+            animator.Idle();
+        }
+        if (isWaiting)
+        {
+            animator.Idle();
+        }
+        else if (!seattrue && targetPoint !=null)
+        {
+            Vector3 direction = new Vector3(targetPoint.position.x - transform.position.x, 0f, targetPoint.position.z - transform.position.z);
+
+
+            if (direction.sqrMagnitude > 0.01f) // проверка на нулевое расстояние
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            }
+            animator.Walk();
+        }     
+        if(!_Outbus && !_Inbus)
+        {
+            seattrue = true;
+            animator.Sit();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f, 0f), Time.deltaTime * rotationSpeed);
         }
     }
     private void LateUpdate()
     {
         _isAtBusStop = busStopTrigger.isAtBusStop;
         _areDoorsOpen = busController.areDoorsOpen;
+        //_indexBusStop = busStopTrigger.indexStop;
     }
     private void Gobus()
     {
@@ -84,7 +113,7 @@ public class PassengerMove : MonoBehaviour
         {          
             PayForRide();
         }
-        Debug.Log(currentIndex);
+       
         
         
         
@@ -92,6 +121,7 @@ public class PassengerMove : MonoBehaviour
     private void Outbus()
     {
         _Inbus = false;
+        seattrue = false;
         seat = false;
         if (RowExit != -1 && !points2[RowExit].IsOccupied) {
             points2[RowExit].Occupy();
@@ -116,7 +146,7 @@ public class PassengerMove : MonoBehaviour
         }        
         Debug.Log("Оплата произведена! Сдача: " + change);   
         driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
-        Debug.Log(driverChange);
+        
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (driverChange >= change) 
@@ -153,13 +183,13 @@ public class PassengerMove : MonoBehaviour
         {
             
             case 50:
-                billPrefab = billPrefabs[1]; // Префаб для купюры 50
+                billPrefab = billPrefabs[0]; // Префаб для купюры 50
                 break;
             case 100:
-                billPrefab = billPrefabs[2]; // Префаб для купюры 100
+                billPrefab = billPrefabs[1]; // Префаб для купюры 100
                 break;
             case 200:
-                billPrefab = billPrefabs[3]; // Префаб для купюры 200
+                billPrefab = billPrefabs[2]; // Префаб для купюры 200
                 break;
             default:
                 break;
@@ -173,7 +203,7 @@ public class PassengerMove : MonoBehaviour
             // Устанавливаем родителя для созданного объекта
             spawnedBill.transform.SetParent(parentObject.transform);
             spawnedBill.transform.localScale = new Vector3(20, 10, 20);  // Затем изменить масштаб
-            Debug.Log("Купюра спавнена: " + billAmount);
+            
         }
         else
         {
@@ -213,9 +243,11 @@ public class PassengerMove : MonoBehaviour
             }
             else if(targetPoint == points3[currentIndex].transform)
             {
+                
                 Debug.Log("сел");
                 _Inbus = false;
                 targetPoint = null;
+                
                 return;
             }
 
@@ -234,7 +266,7 @@ public class PassengerMove : MonoBehaviour
         else if(currentIndex >= points.Length)
         {
             seat = true;
-            Debug.Log("seat");
+            
             targetPoint = null;
         }
         else
