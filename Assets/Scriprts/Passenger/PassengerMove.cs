@@ -14,21 +14,23 @@ public class PassengerMove : MonoBehaviour
     private Point3[] points3; // Массив точек
     private int currentIndex = 0; // Текущий индекс точки
     private int RowExit = -1;
-
+    private int change = 0;
+    public int driverChange;
     private Animator animator;
 
     private bool isWaiting = false; // Флаг ожидания на точке
     private bool seat = false;
-    private bool AnimSeat = false;
-    private bool Spisok1 = false;
+    private bool AnimSeat = false;   
     private bool MoneyGive = false;
     [SerializeField] private bool _Inbus = true;
     [SerializeField] private bool _Outbus = false;
 
-    private Transform childObject;
-    private Transform parentObject;// Оплатил ли пассажир
-    private GameObject[] billPrefabs; // Массив префабов для купюр
-    private Transform spawnPoint;
+    [SerializeField] private Transform childObject;
+    [SerializeField] private Transform parentObject;// Оплатил ли пассажир
+    [SerializeField]private GameObject[] billPrefabs; // Массив префабов для купюр
+    private GameObject billPrefab;
+    private GameObject spawnedBill;
+    [SerializeField] private Transform spawnPoint;
     private int ticketPrice = 30; // Стоимость билета
     private int billGiven; // Купюра, которую даёт пассажир
     private BusStopTrigger busStopTrigger; // Для проверки находится ли пассажир на остановке
@@ -73,15 +75,16 @@ public class PassengerMove : MonoBehaviour
     {
         _Outbus = false;
         if (!isWaiting)
-        {
+        {   if(targetPoint == points[2].transform) { childObject.SetParent(parentObject); }
             if (targetPoint == null && !seat && RowExit == -1) { SetNextTarget(); }
             if (seat && RowExit == -1) { SetSeatRowTarget(); }
             MoveToTarget();
         }
-        else
-        {
+        else if(isWaiting)
+        {          
             PayForRide();
         }
+        Debug.Log(currentIndex);
         
         
         
@@ -107,28 +110,34 @@ public class PassengerMove : MonoBehaviour
         {
             billGiven = GetRandomBill();
             MoneyGive = true;
-            DriverIncome.Instance.AddIncome(ticketPrice); // Добавляем доход водителю
             SpawnBill(billGiven);
             Debug.Log("Пассажир дал купюру: " + billGiven);
-        }
-        else
+            change = billGiven - ticketPrice; // Рассчитываем сдачу
+        }        
+        Debug.Log("Оплата произведена! Сдача: " + change);   
+        driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
+        Debug.Log(driverChange);
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            int change = billGiven - ticketPrice; // Рассчитываем сдачу
-            Debug.Log("Оплата произведена! Сдача: " + change);
-
-            // Получаем сдачу от водителя
-            int driverChange = DriverIncome.Instance.GetChange();
-            if (Input.GetKeyDown(KeyCode.Q) && driverChange > 0)
+            if (driverChange >= change) 
             {
+                //DriverIncome.Instance.AddIncome(ticketPrice);
                 Debug.Log("Пассажир получил сдачу: " + driverChange);
-                DriverIncome.Instance.GiveChange(driverChange); // Выдаем сдачу пассажиру
-                Spisok1 = true;
-                MoneyGive = false;
+                DriverIncome.Instance.GivepASAJChange(driverChange); // Выдаем сдачу пассажиру                
+                isWaiting = false;
+                points[currentIndex].Release();
+                Destroy(spawnedBill);
+                
                 return;// Помечаем, что пассажир оплатил
             }
-
-
+            else
+            {
+                Debug.Log("Мало");
+            }
         }
+
+
+        
     }
     private int GetRandomBill()
     {
@@ -137,36 +146,40 @@ public class PassengerMove : MonoBehaviour
     }
     private void SpawnBill(int billAmount)
     {
-        GameObject billPrefab = null;
+        
 
         // Определяем, какой префаб выбрать на основе номинала купюры
         switch (billAmount)
         {
+            
             case 50:
-                billPrefab = billPrefabs[0]; // Префаб для купюры 50
+                billPrefab = billPrefabs[1]; // Префаб для купюры 50
                 break;
             case 100:
-                billPrefab = billPrefabs[1]; // Префаб для купюры 100
+                billPrefab = billPrefabs[2]; // Префаб для купюры 100
                 break;
             case 200:
-                billPrefab = billPrefabs[2]; // Префаб для купюры 200
+                billPrefab = billPrefabs[3]; // Префаб для купюры 200
+                break;
+            default:
                 break;
         }
 
         if (billPrefab != null && spawnPoint != null)
         {
             // Спавним купюру и сохраняем ссылку на созданный объект
-            GameObject spawnedBill = Instantiate(billPrefab, spawnPoint.position, spawnPoint.rotation);
+            spawnedBill = Instantiate(billPrefab, spawnPoint.position, spawnPoint.rotation);
 
             // Устанавливаем родителя для созданного объекта
             spawnedBill.transform.SetParent(parentObject.transform);
-
+            spawnedBill.transform.localScale = new Vector3(20, 10, 20);  // Затем изменить масштаб
             Debug.Log("Купюра спавнена: " + billAmount);
         }
         else
         {
             Debug.LogWarning("Пропущен спавн купюры: billPrefab или spawnPoint не определены.");
         }
+        
     }   
     private void MoveToTarget()
     {
@@ -175,19 +188,22 @@ public class PassengerMove : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.03f)
         {
-            if (!seat && RowExit == -1)
-            {
-                Debug.Log(currentIndex);
-                points[currentIndex].Release(); // Освобождаем текущую точку
-                currentIndex++;
-                SetNextTarget();
-            }
-            else if (currentIndex == stayIndex)
+            if (currentIndex == stayIndex && !MoneyGive)
             {
                 isWaiting = true; // Останавливаемся на точке ожидания
                 Debug.Log($"Capsule reached stayIndex {stayIndex}. Waiting for trigger...");
             }
-            else if (seat) 
+            if (!seat && RowExit == -1 && !isWaiting)
+            {
+                
+                
+                points[currentIndex].Release(); // Освобождаем текущую точку
+                currentIndex++;
+                SetNextTarget();
+                
+                
+            }          
+            else if (seat && !isWaiting) 
             {
                 
                 points2[RowExit].Release();
@@ -195,7 +211,7 @@ public class PassengerMove : MonoBehaviour
                 seat = false;
 
             }
-            else
+            else if(targetPoint == points3[currentIndex].transform)
             {
                 Debug.Log("сел");
                 _Inbus = false;
@@ -296,6 +312,7 @@ public class PassengerMove : MonoBehaviour
             {
                 targetPoint = null;
                 _Outbus = false;
+                childObject.SetParent(null);
                 return;
             }
             
