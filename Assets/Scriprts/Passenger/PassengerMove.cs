@@ -37,7 +37,9 @@ public class PassengerMove : MonoBehaviour
     public bool _isAtBusStop;
     public bool _areDoorsOpen;
     private bool seattrue = false;
-    private int _indexBusStop;
+    private int _indexBusStop = -1;
+    [SerializeField] private int _indexOUT;
+    [SerializeField] private int _indexSpawn;
     void Start()
     {
         // Находим все точки в сцене и сортируем их по индексу
@@ -50,11 +52,14 @@ public class PassengerMove : MonoBehaviour
         busStopTrigger = FindObjectOfType<BusStopTrigger>();
         busController = FindObjectOfType<BusController>();
         
+
     }
 
     // Update is called once per frame
     void Update()
-    { 
+    {
+        Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
+        Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
         if (_isAtBusStop && _areDoorsOpen)
         {
             if (_Inbus)
@@ -91,13 +96,20 @@ public class PassengerMove : MonoBehaviour
         {
             seattrue = true;
             animator.Sit();
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f, 0f), Time.deltaTime * rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
+        }
+
+        if(_indexBusStop != -1 && _indexBusStop == _indexOUT)
+        {
+            _Outbus = true;
         }
     }
     private void LateUpdate()
     {
-        _isAtBusStop = busStopTrigger.isAtBusStop;
+        _isAtBusStop = busController.s;
         _areDoorsOpen = busController.areDoorsOpen;
+        _indexBusStop = busController.currentStopIndex;
+        Debug.Log(_indexBusStop + "_indexBusStop");
         //_indexBusStop = busStopTrigger.indexStop;
     }
     private void Gobus()
@@ -225,13 +237,14 @@ public class PassengerMove : MonoBehaviour
             }
             if (!seat && RowExit == -1 && !isWaiting)
             {
-                
-                
-                points[currentIndex].Release(); // Освобождаем текущую точку
-                currentIndex++;
-                SetNextTarget();
-                
-                
+
+               
+                    points[currentIndex].Release(); // Освобождаем текущую точку
+                    currentIndex++;
+                    SetNextTarget();
+               
+
+
             }          
             else if (seat && !isWaiting) 
             {
@@ -258,7 +271,7 @@ public class PassengerMove : MonoBehaviour
     private void SetNextTarget()
     {
 
-        if (currentIndex < points.Length && !points[currentIndex].IsOccupied)
+        if (currentIndex < points.Length && !points[currentIndex].IsOccupied )
         {
             targetPoint = points[currentIndex].transform; // Устанавливаем цель
             points[currentIndex].Occupy(); // Занимаем точку         
@@ -268,7 +281,7 @@ public class PassengerMove : MonoBehaviour
             seat = true;
             
             targetPoint = null;
-        }
+        }       
         else
         {
             targetPoint = null;

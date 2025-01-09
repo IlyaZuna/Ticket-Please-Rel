@@ -16,7 +16,7 @@ public class BusController : MonoBehaviour
     public Transform rearLeftWheelModel;
     public Transform rearRightWheelModel;
     public Transform exitpoint;
-    public int currentStopIndex = -1; // Индекс текущей остановки
+    
 
     private Rigidbody rb;
     public float maxSteerAngle = 30f;  // Максимальный угол поворота колес
@@ -25,9 +25,12 @@ public class BusController : MonoBehaviour
     // Новые переменные для состояния дверей и остановки
     public bool areDoorsOpen = false;  // Состояние дверей (открыты/закрыты)
     public bool s = false;      // Находится ли автобус на остановке
+    public int currentStopIndex = -1; // Индекс текущей остановки
+    private BusStopTrigger[] stops; // Массив всех остановок на сцене
 
     void Start()
     {
+        stops = FindObjectsOfType<BusStopTrigger>();
         rb = GetComponent<Rigidbody>(); // Получаем Rigidbody автобуса
     }
 
@@ -63,6 +66,7 @@ public class BusController : MonoBehaviour
         {
             Debug.Log("Текущая остановка: " + currentStopIndex);
         }
+        UpdateCurrentStop();
     }
 
     // Метод для переключения состояния дверей...........................................................................................................................................................................................................
@@ -82,6 +86,24 @@ public class BusController : MonoBehaviour
         wheelModel.rotation = rot;
     }
 
-     
+    public void UpdateCurrentStop()
+    {
+        foreach (var stop in stops)
+        {
+            if (stop.isAtBusStop) // Если автобус на этой остановке
+            {
+                s = true;
+                currentStopIndex = stop.indexStop; // Сохраняем индекс этой остановки
+                Debug.Log("Автобус сейчас на остановке с индексом: " + currentStopIndex);
+                break; // Останавливаем цикл, так как мы нашли текущую остановку
+            }
+            else
+            {
+                s = false;
+                currentStopIndex = -1;
+            }
+        }
+        
+    }
 
 }

@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
 
         // ѕоворот по оси Y (влево и вправо)
         yRotation += mouseX;
-        yRotation = Mathf.Clamp(yRotation, 120f, 260f);  // ќграничение угла поворота камеры влево и вправо
+        yRotation = Mathf.Clamp(yRotation, 120f, 340f);  // ќграничение угла поворота камеры влево и вправо
 
         // ѕримен€ем повороты к камере
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
