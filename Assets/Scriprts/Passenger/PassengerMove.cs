@@ -62,11 +62,11 @@ public class PassengerMove : MonoBehaviour
         Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
         if (_isAtBusStop && _areDoorsOpen)
         {
-            if (_Inbus)
+            if (_Inbus && _indexSpawn == _indexBusStop)
             {
                 Gobus();
             }
-            if (_Outbus)
+            if (_Outbus && _indexBusStop == _indexOUT)
             {
                 
                 Outbus();
