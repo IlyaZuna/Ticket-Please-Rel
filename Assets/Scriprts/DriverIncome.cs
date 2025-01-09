@@ -4,8 +4,8 @@ public class DriverIncome : MonoBehaviour
 {
     private static DriverIncome _instance;  // Ссылка на экземпляр класса
 
-    private int totalIncome;  // Текущий доход водителя
-
+    private int totalIncome;
+    [SerializeField] private MoneySpawner moneySpawner; // Ссылка на объект-спавнер
     // Статическое свойство для получения единственного экземпляра класса
     public static DriverIncome Instance
     {
@@ -25,21 +25,28 @@ public class DriverIncome : MonoBehaviour
     public void AddIncome(int amount)
     {
         totalIncome += amount;
-        Debug.Log($"Доход водителя увеличен на {amount}. Текущий доход: {totalIncome}");
+        Debug.Log($"дениги водителя увеличен на {amount}. Текущий доход: {totalIncome}");
     }
 
     // Метод для получения сдачи
     public int GetChange()
     {
-        return totalIncome;  // Вернем текущий доход
-    }
+        return totalIncome;  
+    }   
 
     // Метод для выдачи сдачи
-    public void GiveChange(int change)
+    public void GiveChange(int billValue)
     {
-        totalIncome -= change;
+        totalIncome += billValue; // Увеличиваем сдачу
+        Debug.Log($"Сдача увеличена на {billValue}. Текущая сдача: {totalIncome}");
+
+    }
+    // Метод для выдачи сдачи
+    public void GivepASAJChange(int change)
+    {
+        totalIncome = 0;
         Debug.Log($"Водитель отдал сдачу: {change}. Текущий доход: {totalIncome}");
-        change = 0;
+        moneySpawner.ResetStack();
         MoneyGive = true;
     }
 }
