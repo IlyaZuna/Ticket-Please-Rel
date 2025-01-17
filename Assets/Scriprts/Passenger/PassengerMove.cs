@@ -18,9 +18,9 @@ public class PassengerMove : MonoBehaviour
     public float rotationSpeed = 5f;
     public int driverChange;
 
-    private bool isWaiting = false; // Флаг ожидания на точке
-    private bool seat = false;   
-    private bool MoneyGive = false;
+    [SerializeField] private bool isWaiting = false; // Флаг ожидания на точке
+    [SerializeField] private bool seat = false;
+    [SerializeField] private bool MoneyGive = false;
     [SerializeField] private bool _Inbus = true;
     [SerializeField] private bool _Outbus = false;
     [SerializeField]public AnimBase animator;
@@ -63,7 +63,7 @@ public class PassengerMove : MonoBehaviour
         if (_isAtBusStop && _areDoorsOpen)
         {
             if (_Inbus && _indexSpawn == _indexBusStop)
-            {
+            {                
                 Gobus();
             }
             if (_Outbus && _indexBusStop == _indexOUT)
@@ -169,7 +169,7 @@ public class PassengerMove : MonoBehaviour
                 isWaiting = false;
                 points[currentIndex].Release();
                 Destroy(spawnedBill);
-                
+                seat = true;
                 return;// Помечаем, что пассажир оплатил
             }
             else
@@ -231,28 +231,19 @@ public class PassengerMove : MonoBehaviour
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.03f)
         {
             if (currentIndex == stayIndex && !MoneyGive)
-            {
+            {   
                 isWaiting = true; // Останавливаемся на точке ожидания
                 Debug.Log($"Capsule reached stayIndex {stayIndex}. Waiting for trigger...");
             }
             if (!seat && RowExit == -1 && !isWaiting)
             {
-
-               
-                    points[currentIndex].Release(); // Освобождаем текущую точку
-                    currentIndex++;
                     SetNextTarget();
-               
-
-
             }          
             else if (seat && !isWaiting) 
             {
-                
                 points2[RowExit].Release();
                 targetPoint = points3[currentIndex].transform;
                 seat = false;
-
             }
             else if(targetPoint == points3[currentIndex].transform)
             {
@@ -270,18 +261,22 @@ public class PassengerMove : MonoBehaviour
     }
     private void SetNextTarget()
     {
-
-        if (currentIndex < points.Length && !points[currentIndex].IsOccupied )
+        int nextindex = currentIndex + 1;
+        if (nextindex == points.Length)
         {
-            targetPoint = points[currentIndex].transform; // Устанавливаем цель
-            points[currentIndex].Occupy(); // Занимаем точку         
+            nextindex = currentIndex;
         }
-        else if(currentIndex >= points.Length)
+
+        if (currentIndex < points.Length && !points[nextindex].IsOccupied)
         {
-            seat = true;
             
-            targetPoint = null;
-        }       
+            points[currentIndex].Release(); // Освобождаем текущую точку
+            targetPoint = points[nextindex].transform; // Устанавливаем цель
+            points[nextindex].Occupy(); // Занимаем точку
+
+            currentIndex++;
+           
+        }            
         else
         {
             targetPoint = null;
