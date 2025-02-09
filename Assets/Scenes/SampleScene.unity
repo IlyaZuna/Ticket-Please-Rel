@@ -48463,6 +48463,50 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.91242
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.00003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00424
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.50337476
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5033748
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4966023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.4966023
+      objectReference: {fileID: 0}
+    - target: {fileID: 4402366963937768779, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -0.776
+      objectReference: {fileID: 0}
     - target: {fileID: 4742281655845247295, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       propertyPath: m_Name
       value: rearRightWheel
@@ -48475,6 +48519,10 @@ PrefabInstance:
       propertyPath: m_ForwardFriction.m_Stiffness
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7187040135777271379, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 8400000, guid: 9e10cab2a2cd8704abfe19fe5996b430, type: 2}
     - target: {fileID: 7292382428442060080, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       propertyPath: m_Enabled
       value: 1
