@@ -5,19 +5,29 @@ using UnityEngine;
 public class BusDoorController : MonoBehaviour {
     // Ссылка на компонент Animator
     private Animator animator;
+
     // Имя триггера для открытия дверей
     private const string OpenDoorsTrigger = "OpenDoors";
-    private void Start()
-    {
+
+    void Start() {
+        // Получаем компонент Animator на объекте
         animator = GetComponent<Animator>();
+
         if (animator == null)
         {
-            Debug.LogError("Animator не найден! Добавьте компонент Animator к двери.");
+            Debug.LogError("Animator не найден! Добавьте компонент Animator к объекту.");
         }
-        ButtonDoor.OnButtonPressed += ToggleDoor;
     }
-    public void ToggleDoor()
-    {      
-        animator.SetTrigger(OpenDoorsTrigger); // Активируем триггер для анимации
+
+    void Update() {
+        // Проверяем нажатие клавиши K
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            if (animator != null)
+            {
+                // Активируем триггер для анимации
+                animator.SetTrigger(OpenDoorsTrigger);
+            }
+        }
     }
 }

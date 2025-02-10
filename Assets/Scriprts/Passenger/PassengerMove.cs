@@ -62,7 +62,7 @@ public class PassengerMove : MonoBehaviour
         {
             target = WalkPoint[_indexOUT];
         }
-        ButtonDoor.OnButtonPressed += ToggleDoor;
+
     }
 
     // Update is called once per frame
@@ -70,8 +70,8 @@ public class PassengerMove : MonoBehaviour
     {
         if (_indexOUT != -1)
         {
-            //Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
-            //Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
+            Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
+            Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
             if (_isAtBusStop && _areDoorsOpen)
             {
                 if (_Inbus && _indexSpawn == _indexBusStop)
@@ -125,8 +125,9 @@ public class PassengerMove : MonoBehaviour
     private void LateUpdate()
     {
         _isAtBusStop = busController.s;
+        _areDoorsOpen = busController.areDoorsOpen;
         _indexBusStop = busController.currentStopIndex;
-        //Debug.Log(_indexBusStop + "_indexBusStop");
+        Debug.Log(_indexBusStop + "_indexBusStop");
         //_indexBusStop = busStopTrigger.indexStop;
     }
     private void Gobus()
@@ -411,16 +412,8 @@ public class PassengerMove : MonoBehaviour
         animator.Walk();
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-            ButtonDoor.OnButtonPressed -= ToggleDoor;
-            Destroy(gameObject);
+           Destroy(gameObject);
         }
     }
-    public void ToggleDoor()
-    {
-        if (!_areDoorsOpen)
-        {
-            _areDoorsOpen = true;
-        }
-        else { _areDoorsOpen = false; }
-    }
+   
 }
