@@ -45,6 +45,7 @@ public class PassengerMove : MonoBehaviour
     [SerializeField] private Transform[] WalkPoint;
     private Transform target;
     private NavMeshAgent agent;
+    private bool Pauze = false;
     void Start()
     {
 
@@ -62,7 +63,7 @@ public class PassengerMove : MonoBehaviour
         {
             target = WalkPoint[_indexOUT];
         }
-
+        ButtonDoor.OnButtonPressed += ToggleDoor;
     }
 
     // Update is called once per frame
@@ -70,8 +71,8 @@ public class PassengerMove : MonoBehaviour
     {
         if (_indexOUT != -1)
         {
-            Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
-            Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
+            //Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
+            //Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
             if (_isAtBusStop && _areDoorsOpen)
             {
                 if (_Inbus && _indexSpawn == _indexBusStop)
@@ -125,29 +126,40 @@ public class PassengerMove : MonoBehaviour
     private void LateUpdate()
     {
         _isAtBusStop = busController.s;
-        _areDoorsOpen = busController.areDoorsOpen;
         _indexBusStop = busController.currentStopIndex;
-        Debug.Log(_indexBusStop + "_indexBusStop");
+        //Debug.Log(_indexBusStop + "_indexBusStop");
         //_indexBusStop = busStopTrigger.indexStop;
     }
     private void Gobus()
     {
-        _Outbus = false;
-        if (!isWaiting)
+        if (!Pauze)
         {
-            if (targetPoint == points[2].transform) { childObject.SetParent(parentObject); agent.enabled = false; }
-            if (targetPoint == null && !seat && RowExit == -1) { SetNextTarget(); }
-            if (seat && RowExit == -1) { SetSeatRowTarget(); }
-            MoveToTarget();
+            //StartCoroutine(WaitAndExecute());
+            Pauze = true;
         }
-        else if (isWaiting)
+        else
         {
-            PayForRide();
+            _Outbus = false;
+            if (!isWaiting)
+            {
+                if (targetPoint == points[2].transform) { childObject.SetParent(parentObject); agent.enabled = false; }
+                if (targetPoint == null && !seat && RowExit == -1) { SetNextTarget(); }
+                if (seat && RowExit == -1) { SetSeatRowTarget(); }
+                MoveToTarget();
+            }
+            else if (isWaiting)
+            {
+                PayForRide();
+            }
         }
 
 
 
-
+    }
+    private IEnumerator WaitAndExecute()
+    {
+        yield return new WaitForSeconds(6f); // ∆дем 6 секунд
+        
     }
     private void Outbus()
     {
@@ -379,6 +391,8 @@ public class PassengerMove : MonoBehaviour
             }
             if (targetPoint = points[0].transform)
             {
+                if (points3[3].IsOccupied) { points[3].Release(); }
+              
                 points[0].Release();
                 targetPoint = null;
             }
@@ -407,13 +421,38 @@ public class PassengerMove : MonoBehaviour
         }
     }
     private void Walk()
-    {                
+    {
         agent.SetDestination(target.position);
         animator.Walk();
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
-           Destroy(gameObject);
+            ButtonDoor.OnButtonPressed -= ToggleDoor;
+            Destroy(gameObject);
         }
     }
-   
+    public void ToggleDoor()
+    {
+        if (!_areDoorsOpen)
+        {
+            _areDoorsOpen = true;
+        }
+        else { _areDoorsOpen = false; }
+    }
+    public void SetIndex(int index)
+    {
+        _indexSpawn = index;
+        _indexOUT =Random.Range(index, 6);
+    }
+    private bool IsAnyPointOccupied<T>(T[] pointArray) where T : IPoint
+    {
+        foreach (T point in pointArray)
+        {
+            if (point != null && point.isOccupied)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
+

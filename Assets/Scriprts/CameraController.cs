@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -57,7 +57,14 @@ public class CameraController : MonoBehaviour
         {
             // Проверяем, попал ли луч в объект
             Debug.Log($"Рэй попал в объект: {hit.collider.name}");
-
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();  // Получаем компонент IInteractable на объекте
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (interactable != null)
+                {
+                    interactable.Interact();  // Вызываем метод Interact() если объект поддерживает IInteractable
+                }
+            }
             // Проверяем, есть ли компонент BillEtMoney на объекте, в который попал луч
             var bill = hit.collider.GetComponent<BiilllEtMoney>();
             if (bill != null)
