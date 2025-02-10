@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PassengerMove : MonoBehaviour
 {
-    [SerializeField]private float speed = 2f; // Скорость капсулы
+    [SerializeField] private float speed = 2f; // Скорость капсулы
     [SerializeField] private int stayIndex = 0; // Индекс точки, где капсула останавливается
     private KeyCode releaseKey = KeyCode.Return; // Клавиша для выхода из ожидания
 
@@ -23,14 +24,14 @@ public class PassengerMove : MonoBehaviour
     [SerializeField] private bool MoneyGive = false;
     [SerializeField] private bool _Inbus = true;
     [SerializeField] private bool _Outbus = false;
-    [SerializeField]public AnimBase animator;
+    [SerializeField] public AnimBase animator;
     [SerializeField] private Transform childObject;
     [SerializeField] private Transform parentObject;// Оплатил ли пассажир
-    [SerializeField]private GameObject[] billPrefabs; // Массив префабов для купюр
+    [SerializeField] private GameObject[] billPrefabs; // Массив префабов для купюр
     private GameObject billPrefab;
     private GameObject spawnedBill;
     [SerializeField] private Transform spawnPoint;
-    private int ticketPrice = 30; // Стоимость билета
+
     private int billGiven; // Купюра, которую даёт пассажир
     private BusStopTrigger busStopTrigger; // Для проверки находится ли пассажир на остановке
     private BusController busController;
@@ -40,8 +41,13 @@ public class PassengerMove : MonoBehaviour
     private int _indexBusStop = -1;
     [SerializeField] private int _indexOUT;
     [SerializeField] private int _indexSpawn;
+    [SerializeField] private int ticketPrice = 30; // Стоимость билета
+    [SerializeField] private Transform[] WalkPoint;
+    private Transform target;
+    private NavMeshAgent agent;
     void Start()
     {
+
         // Находим все точки в сцене и сортируем их по индексу
         points = FindObjectsOfType<Point>();
         System.Array.Sort(points, (a, b) => a.Index.CompareTo(b.Index));
@@ -51,58 +57,70 @@ public class PassengerMove : MonoBehaviour
         System.Array.Sort(points3, (a, b) => a.Index.CompareTo(b.Index));
         busStopTrigger = FindObjectOfType<BusStopTrigger>();
         busController = FindObjectOfType<BusController>();
-        
+        agent = GetComponent<NavMeshAgent>();
+        if (WalkPoint != null && WalkPoint.Length != 0)
+        {
+            target = WalkPoint[_indexOUT];
+        }
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
-        Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
-        if (_isAtBusStop && _areDoorsOpen)
+        if (_indexOUT != -1)
         {
-            if (_Inbus && _indexSpawn == _indexBusStop)
-            {                
-                Gobus();
-            }
-            if (_Outbus && _indexBusStop == _indexOUT)
+            Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexSpawn);
+            Debug.Log("!!!!!!!!!!!!!_indexSpawn" + _indexBusStop);
+            if (_isAtBusStop && _areDoorsOpen)
             {
-                
-                Outbus();
+                if (_Inbus && _indexSpawn == _indexBusStop)
+                {
+                    Gobus();
+                }
+                if (_Outbus && _indexBusStop == _indexOUT)
+                {
+
+                    Outbus();
+                }
             }
-        }       
-        if(targetPoint == null && !seattrue)
-        {
-            animator.Idle();
-        }
-        if (isWaiting)
-        {
-            animator.Idle();
-        }
-        else if (!seattrue && targetPoint !=null)
-        {
-            Vector3 direction = new Vector3(targetPoint.position.x - transform.position.x, 0f, targetPoint.position.z - transform.position.z);
-
-
-            if (direction.sqrMagnitude > 0.01f) // проверка на нулевое расстояние
+            if (targetPoint == null && !seattrue)
             {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                animator.Idle();
             }
-            animator.Walk();
-        }     
-        if(!_Outbus && !_Inbus)
+            if (isWaiting)
+            {
+                animator.Idle();
+            }
+            else if (!seattrue && targetPoint != null)
+            {
+                Vector3 direction = new Vector3(targetPoint.position.x - transform.position.x, 0f, targetPoint.position.z - transform.position.z);
+
+
+                if (direction.sqrMagnitude > 0.01f) // проверка на нулевое расстояние
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(direction);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+                }
+                animator.Walk();
+            }
+            if (!_Outbus && !_Inbus)
+            {
+                seattrue = true;
+                animator.Sit();
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
+            }
+
+            if (_indexBusStop != -1 && _indexBusStop == _indexOUT)
+            {
+                _Outbus = true;
+            }
+        }
+        else
         {
-            seattrue = true;
-            animator.Sit();
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
+            Walk();
         }
 
-        if(_indexBusStop != -1 && _indexBusStop == _indexOUT)
-        {
-            _Outbus = true;
-        }
     }
     private void LateUpdate()
     {
@@ -116,34 +134,36 @@ public class PassengerMove : MonoBehaviour
     {
         _Outbus = false;
         if (!isWaiting)
-        {   if(targetPoint == points[2].transform) { childObject.SetParent(parentObject); }
+        {
+            if (targetPoint == points[2].transform) { childObject.SetParent(parentObject); agent.enabled = false; }
             if (targetPoint == null && !seat && RowExit == -1) { SetNextTarget(); }
             if (seat && RowExit == -1) { SetSeatRowTarget(); }
             MoveToTarget();
         }
-        else if(isWaiting)
-        {          
+        else if (isWaiting)
+        {
             PayForRide();
         }
-       
-        
-        
-        
+
+
+
+
     }
     private void Outbus()
     {
         _Inbus = false;
         seattrue = false;
         seat = false;
-        if (RowExit != -1 && !points2[RowExit].IsOccupied) {
+        if (RowExit != -1 && !points2[RowExit].IsOccupied)
+        {
             points2[RowExit].Occupy();
-            targetPoint = points2[RowExit].transform; 
-            
-        } 
-       
-               
-        MoveToTargetExit(); 
-       
+            targetPoint = points2[RowExit].transform;
+
+        }
+
+
+        MoveToTargetExit();
+
     }
     private void PayForRide()
     {
@@ -155,13 +175,13 @@ public class PassengerMove : MonoBehaviour
             SpawnBill(billGiven);
             Debug.Log("Пассажир дал купюру: " + billGiven);
             change = billGiven - ticketPrice; // Рассчитываем сдачу
-        }        
-        Debug.Log("Оплата произведена! Сдача: " + change);   
+        }
+        Debug.Log("Оплата произведена! Сдача: " + change);
         driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
-        
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (driverChange >= change) 
+            if (driverChange >= change)
             {
                 //DriverIncome.Instance.AddIncome(ticketPrice);
                 Debug.Log("Пассажир получил сдачу: " + driverChange);
@@ -179,7 +199,7 @@ public class PassengerMove : MonoBehaviour
         }
 
 
-        
+
     }
     private int GetRandomBill()
     {
@@ -188,12 +208,12 @@ public class PassengerMove : MonoBehaviour
     }
     private void SpawnBill(int billAmount)
     {
-        
+
 
         // Определяем, какой префаб выбрать на основе номинала купюры
         switch (billAmount)
         {
-            
+
             case 50:
                 billPrefab = billPrefabs[0]; // Префаб для купюры 50
                 break;
@@ -215,43 +235,43 @@ public class PassengerMove : MonoBehaviour
             // Устанавливаем родителя для созданного объекта
             spawnedBill.transform.SetParent(parentObject.transform);
             spawnedBill.transform.localScale = new Vector3(20, 10, 20);  // Затем изменить масштаб
-            
+
         }
         else
         {
             Debug.LogWarning("Пропущен спавн купюры: billPrefab или spawnPoint не определены.");
         }
-        
-    }   
+
+    }
     private void MoveToTarget()
     {
-        
-        if(targetPoint == null) { return; }
+
+        if (targetPoint == null) { return; }
         transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.03f)
         {
             if (currentIndex == stayIndex && !MoneyGive)
-            {   
+            {
                 isWaiting = true; // Останавливаемся на точке ожидания
                 Debug.Log($"Capsule reached stayIndex {stayIndex}. Waiting for trigger...");
             }
             if (!seat && RowExit == -1 && !isWaiting)
             {
-                    SetNextTarget();
-            }          
-            else if (seat && !isWaiting) 
+                SetNextTarget();
+            }
+            else if (seat && !isWaiting)
             {
                 points2[RowExit].Release();
                 targetPoint = points3[currentIndex].transform;
                 seat = false;
             }
-            else if(targetPoint == points3[currentIndex].transform)
+            else if (targetPoint == points3[currentIndex].transform)
             {
-                
+
                 Debug.Log("сел");
                 _Inbus = false;
                 targetPoint = null;
-                
+
                 return;
             }
 
@@ -269,14 +289,14 @@ public class PassengerMove : MonoBehaviour
 
         if (currentIndex < points.Length && !points[nextindex].IsOccupied)
         {
-            
+
             points[currentIndex].Release(); // Освобождаем текущую точку
             targetPoint = points[nextindex].transform; // Устанавливаем цель
             points[nextindex].Occupy(); // Занимаем точку
 
             currentIndex++;
-           
-        }            
+
+        }
         else
         {
             targetPoint = null;
@@ -290,8 +310,8 @@ public class PassengerMove : MonoBehaviour
         for (int i = 0; i < 36; i++)
         {
             if (!points3[currentIndex].IsOccupied)
-            {                               
-                
+            {
+
 
                 switch (currentIndex)
                 {
@@ -317,9 +337,9 @@ public class PassengerMove : MonoBehaviour
                 points2[RowExit].Occupy();
                 points3[currentIndex].Occupy();
                 targetPoint = points2[RowExit].transform;  // Устанавливаем цель
-                Debug.Log("придумал"+RowExit+ "     currentIndex   " + currentIndex);
+                Debug.Log("придумал" + RowExit + "     currentIndex   " + currentIndex);
                 return;
-                
+
             }
             else
             {
@@ -336,14 +356,14 @@ public class PassengerMove : MonoBehaviour
         }
 
 
-}
+    }
     private void MoveToTargetExit()
     {
         if (targetPoint == null) { return; }
         transform.position = Vector3.MoveTowards(transform.position, targetPoint.position, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, targetPoint.position) < 0.03f)
         {
-            if(RowExit != -1)
+            if (RowExit != -1)
             {
                 points2[RowExit].Release();
                 RowExit = -1;
@@ -353,12 +373,19 @@ public class PassengerMove : MonoBehaviour
                 targetPoint = null;
                 _Outbus = false;
                 childObject.SetParent(null);
+                agent.enabled = true;
+                _indexOUT = -1;
                 return;
             }
-            
+            if (targetPoint = points[0].transform)
+            {
+                points[0].Release();
+                targetPoint = null;
+            }
+
             SetNextTargetExit();
         }
-        
+
     }
     private void SetNextTargetExit()
     {
@@ -367,7 +394,7 @@ public class PassengerMove : MonoBehaviour
             points[3].Occupy();
             targetPoint = points[3].transform;
         }
-        else if (!points[0].IsOccupied && targetPoint == points[3].transform && targetPoint != points[0].transform)
+        else if (!points[0].IsOccupied && targetPoint != points[3].transform && targetPoint != points[0].transform)
         {
             points[0].Occupy();
             points[3].Release();
@@ -375,7 +402,18 @@ public class PassengerMove : MonoBehaviour
         }
         else
         {
+
             targetPoint = null;
         }
     }
+    private void Walk()
+    {                
+        agent.SetDestination(target.position);
+        animator.Walk();
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        {
+           Destroy(gameObject);
+        }
+    }
+   
 }
