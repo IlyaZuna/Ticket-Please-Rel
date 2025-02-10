@@ -21,7 +21,7 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
-    void Update()
+    void  LateUpdate()
     {
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -55,6 +55,14 @@ public class CameraController : MonoBehaviour
         // Выполняем рэйкаст с ограничением дистанции
         if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
         {
+            if (Input.GetMouseButtonDown(0))
+            {
+                IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+                if (interactable != null)
+                {
+                    interactable.Interact();  // Вызываем метод Interact() если объект поддерживает IInteractable
+                }
+            }
             // Проверяем, попал ли луч в объект
             Debug.Log($"Рэй попал в объект: {hit.collider.name}");
 
@@ -67,6 +75,7 @@ public class CameraController : MonoBehaviour
                 // Здесь можно вызвать метод, например, OnMouseDown()
                 bill.OnMouseDown(); // Вызов метода из BillEtMoney компонента
             }
+            
         }
 
 

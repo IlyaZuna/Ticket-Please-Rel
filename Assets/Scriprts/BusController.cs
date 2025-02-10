@@ -16,10 +16,13 @@ public class BusController : MonoBehaviour
     public Transform rearLeftWheelModel;
     public Transform rearRightWheelModel;
     public Transform exitpoint;
-    
+    [SerializeField] Transform ruder;
 
     private Rigidbody rb;
     public float maxSteerAngle = 30f;  // Максимальный угол поворота колес
+    private float currentRotation = 0f;  // Текущий угол поворота руля
+    public float turnSpeedudder = 100f;  // Скорость вращения руля
+    private float maxRotation = 440f;  // 2.5 оборота (360 * 2.5)
     public bool isDriver = false;
 
     // Новые переменные для состояния дверей и остановки
@@ -36,12 +39,6 @@ public class BusController : MonoBehaviour
 
     void Update()
     {
-        // Проверяем, нажата ли клавиша "1" и находится ли автобус на остановке
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ToggleDoors();  // Вызов метода переключения состояния дверей
-        }
-
         // Движение автобуса
         float move = -Input.GetAxis("Vertical") * moveSpeed; // W/S или стрелки
         float turn = Input.GetAxis("Horizontal") * turnSpeed; // A/D или стрелки
@@ -53,29 +50,23 @@ public class BusController : MonoBehaviour
         rearLeftWheel.motorTorque = move * 300f;
         rearRightWheel.motorTorque = move * 300f;
 
+
         // Поворот колес
         frontLeftWheel.steerAngle = turn;
         frontRightWheel.steerAngle = turn;
+        // Поворот руля
+        // Обновляем текущий угол с ограничением
+        currentRotation = Mathf.Clamp(currentRotation + turn, -maxRotation, maxRotation);
 
+        // Применяем вращение по оси Z
+        ruder.transform.localRotation = Quaternion.Euler(-75, 0, currentRotation);
         // Обновляем модели колес
         UpdateWheelPosition(frontLeftWheel, frontLeftWheelModel);
         UpdateWheelPosition(frontRightWheel, frontRightWheelModel);
         UpdateWheelPosition(rearLeftWheel, rearLeftWheelModel);
         UpdateWheelPosition(rearRightWheel, rearRightWheelModel);
-        if (currentStopIndex != -1)
-        {
-            Debug.Log("Текущая остановка: " + currentStopIndex);
-        }
         UpdateCurrentStop();
     }
-
-    // Метод для переключения состояния дверей...........................................................................................................................................................................................................
-    void ToggleDoors()
-    {
-        areDoorsOpen = !areDoorsOpen;// Меняем состояние дверей
-        Debug.Log("Двери " + (areDoorsOpen ? "открыты" : "закрыты"));
-    }
-    //.....................................................................................................................................................................................................................................
     // Обновляем позиции и вращения колес
     void UpdateWheelPosition(WheelCollider wheelCollider, Transform wheelModel)
     {
