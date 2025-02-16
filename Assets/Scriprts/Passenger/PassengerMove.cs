@@ -35,6 +35,7 @@ public class PassengerMove : MonoBehaviour
     private int billGiven; // Купюра, которую даёт пассажир
     private BusStopTrigger busStopTrigger; // Для проверки находится ли пассажир на остановке
     private BusController busController;
+    private FindWay findWay;
     public bool _isAtBusStop;
     public bool _areDoorsOpen;
     private bool seattrue = false;
@@ -45,7 +46,8 @@ public class PassengerMove : MonoBehaviour
     [SerializeField] private Transform[] WalkPoint;
     private Transform target;
     private NavMeshAgent agent;
-    private bool Pauze = false;
+ 
+    private bool clear = false;
     void Start()
     {
 
@@ -59,6 +61,8 @@ public class PassengerMove : MonoBehaviour
         busStopTrigger = FindObjectOfType<BusStopTrigger>();
         busController = FindObjectOfType<BusController>();
         agent = GetComponent<NavMeshAgent>();
+
+        
         if (WalkPoint != null && WalkPoint.Length != 0)
         {
             target = WalkPoint[_indexOUT];
@@ -66,7 +70,7 @@ public class PassengerMove : MonoBehaviour
         ButtonDoor.OnButtonPressed += ToggleDoor;
     }
 
-    // Update is called once per frame
+   
     void Update()
     {
         if (_indexOUT != -1)
@@ -77,7 +81,9 @@ public class PassengerMove : MonoBehaviour
             {
                 if (_Inbus && _indexSpawn == _indexBusStop)
                 {
-                    Gobus();
+                    
+                        Gobus();
+                    
                 }
                 if (_Outbus && _indexBusStop == _indexOUT)
                 {
@@ -131,14 +137,8 @@ public class PassengerMove : MonoBehaviour
         //_indexBusStop = busStopTrigger.indexStop;
     }
     private void Gobus()
-    {
-        if (!Pauze)
-        {
-            //StartCoroutine(WaitAndExecute());
-            Pauze = true;
-        }
-        else
-        {
+    {       
+      
             _Outbus = false;
             if (!isWaiting)
             {
@@ -151,16 +151,11 @@ public class PassengerMove : MonoBehaviour
             {
                 PayForRide();
             }
-        }
-
-
-
-    }
-    private IEnumerator WaitAndExecute()
-    {
-        yield return new WaitForSeconds(6f); // Ждем 6 секунд
         
-    }
+
+
+
+    }   
     private void Outbus()
     {
         _Inbus = false;
@@ -443,16 +438,6 @@ public class PassengerMove : MonoBehaviour
         _indexSpawn = index;
         _indexOUT =Random.Range(index, 6);
     }
-    private bool IsAnyPointOccupied<T>(T[] pointArray) where T : IPoint
-    {
-        foreach (T point in pointArray)
-        {
-            if (point != null && point.isOccupied)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
+   
 }
 
