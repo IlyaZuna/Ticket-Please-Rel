@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
 
     private float xRotation = 0f;          // Хранит поворот по оси X (вверх и вниз)
     private float yRotation = 180f;        // Устанавливаем начальный поворот по оси Y на 180 градусов
+    [SerializeField] private Camera playerCamera; // Камера игрока
+    [SerializeField] private float interactionDistance = 5f; // Дистанция взаимодействия
 
     void Start()
     {
@@ -19,7 +21,7 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -31,10 +33,50 @@ public class CameraController : MonoBehaviour
 
         // Поворот по оси Y (влево и вправо)
         yRotation += mouseX;
-        yRotation = Mathf.Clamp(yRotation, 120f, 260f);  // Ограничение угла поворота камеры влево и вправо
+        yRotation = Mathf.Clamp(yRotation, 120f, 340f);  // Ограничение угла поворота камеры влево и вправо
 
         // Применяем повороты к камере
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+        RayCaster();
+    }
+    private void RayCaster()
+    {
+        Vector3 rayOrigin = playerCamera.transform.position;
+
+        // Направление луча. Это может быть любое направление от камеры, например, вперед по оси Z
+        Vector3 rayDirection = playerCamera.transform.forward;  // Направление вперед от камеры
+
+        // Создаем рэй из камеры
+        Ray ray = new Ray(rayOrigin, rayDirection);
+        int layerMask = ~LayerMask.GetMask("Bus");
+
+        RaycastHit hit;
+
+        // Выполняем рэйкаст с ограничением дистанции
+        if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
+        {
+            // Проверяем, попал ли луч в объект
+            Debug.Log($"Рэй попал в объект: {hit.collider.name}");
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();  // Получаем компонент IInteractable на объекте
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (interactable != null)
+                {
+                    interactable.Interact();  // Вызываем метод Interact() если объект поддерживает IInteractable
+                }
+            }
+            // Проверяем, есть ли компонент BillEtMoney на объекте, в который попал луч
+            var bill = hit.collider.GetComponent<BiilllEtMoney>();
+            if (bill != null)
+            {
+                // Если компонент найден, делаем что-то с этим объектом
+                Debug.Log("Попали в BillEtMoney объект!");
+                // Здесь можно вызвать метод, например, OnMouseDown()
+                bill.OnMouseDown(); // Вызов метода из BillEtMoney компонента
+            }
+        }
+
+
 
     }
 }

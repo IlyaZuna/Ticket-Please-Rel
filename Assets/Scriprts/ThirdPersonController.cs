@@ -6,6 +6,7 @@ using UnityEngine;
 public class ThirdPersonController : MonoBehaviour
 {
     public float moveSpeed = 5f;        // Скорость передвижения
+    public float multiplySpeed = 5f;
     public float mouseSensitivity = 2f; // Чувствительность мыши
     public Transform cameraRig;         // Объект, к которому привязана камера
     public float cameraDistance = 4f;   // Расстояние камеры от персонажа
@@ -51,7 +52,7 @@ public class ThirdPersonController : MonoBehaviour
         float vertical = Input.GetAxis("Vertical");
 
         bool isRunning = Input.GetKey(KeyCode.LeftShift);
-        float currentSpeed = isRunning ? moveSpeed * 2 : moveSpeed;
+        float currentSpeed = isRunning ? moveSpeed * multiplySpeed : moveSpeed;
 
         Vector3 moveDirection = transform.forward * vertical + transform.right * horizontal;
         controller.Move(moveDirection * currentSpeed * Time.deltaTime);

@@ -16,29 +16,29 @@ public class BusController : MonoBehaviour
     public Transform rearLeftWheelModel;
     public Transform rearRightWheelModel;
     public Transform exitpoint;
-
+    [SerializeField] Transform ruder;
 
     private Rigidbody rb;
     public float maxSteerAngle = 30f;  // Максимальный угол поворота колес
+    private float currentRotation = 0f;  // Текущий угол поворота руля
+    public float turnSpeedudder = 100f;  // Скорость вращения руля
+    private float maxRotation = 440f;  // 2.5 оборота (360 * 2.5)
     public bool isDriver = false;
 
     // Новые переменные для состояния дверей и остановки
     public bool areDoorsOpen = false;  // Состояние дверей (открыты/закрыты)
     public bool s = false;      // Находится ли автобус на остановке
+    public int currentStopIndex = -1; // Индекс текущей остановки
+    private BusStopTrigger[] stops; // Массив всех остановок на сцене
 
     void Start()
     {
+        stops = FindObjectsOfType<BusStopTrigger>();
         rb = GetComponent<Rigidbody>(); // Получаем Rigidbody автобуса
     }
 
     void Update()
     {
-        // Проверяем, нажата ли клавиша "1" и находится ли автобус на остановке
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            ToggleDoors();  // Вызов метода переключения состояния дверей
-        }
-
         // Движение автобуса
         float move = -Input.GetAxis("Vertical") * moveSpeed; // W/S или стрелки
         float turn = Input.GetAxis("Horizontal") * turnSpeed; // A/D или стрелки
@@ -50,24 +50,17 @@ public class BusController : MonoBehaviour
         rearLeftWheel.motorTorque = move * 300f;
         rearRightWheel.motorTorque = move * 300f;
 
+
         // Поворот колес
         frontLeftWheel.steerAngle = turn;
         frontRightWheel.steerAngle = turn;
-
         // Обновляем модели колес
         UpdateWheelPosition(frontLeftWheel, frontLeftWheelModel);
         UpdateWheelPosition(frontRightWheel, frontRightWheelModel);
         UpdateWheelPosition(rearLeftWheel, rearLeftWheelModel);
         UpdateWheelPosition(rearRightWheel, rearRightWheelModel);
+        UpdateCurrentStop();
     }
-
-    // Метод для переключения состояния дверей...........................................................................................................................................................................................................
-    void ToggleDoors()
-    {
-        areDoorsOpen = !areDoorsOpen;// Меняем состояние дверей
-        Debug.Log("Двери " + (areDoorsOpen ? "открыты" : "закрыты"));
-    }
-    //.....................................................................................................................................................................................................................................
     // Обновляем позиции и вращения колес
     void UpdateWheelPosition(WheelCollider wheelCollider, Transform wheelModel)
     {
@@ -78,6 +71,24 @@ public class BusController : MonoBehaviour
         wheelModel.rotation = rot;
     }
 
-     
+    public void UpdateCurrentStop()
+    {
+        foreach (var stop in stops)
+        {
+            if (stop.isAtBusStop) // Если автобус на этой остановке
+            {
+                s = true;
+                currentStopIndex = stop.indexStop; // Сохраняем индекс этой остановки
+                Debug.Log("Автобус сейчас на остановке с индексом: " + currentStopIndex);
+                break; // Останавливаем цикл, так как мы нашли текущую остановку
+            }
+            else
+            {
+                s = false;
+                currentStopIndex = -1;
+            }
+        }
+
+    }
 
 }
