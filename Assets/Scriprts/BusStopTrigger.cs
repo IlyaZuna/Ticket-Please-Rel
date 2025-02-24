@@ -8,8 +8,14 @@ public class BusStopTrigger : MonoBehaviour
     public bool isAtBusStop = false; // Переменная для отслеживания, находится ли автобус на остановке
     [SerializeField] public int indexStop; // Индекс этой остановки
     int count = 0;
+    private FindWay findWay;
     [SerializeField] private int bab;
+    [SerializeField] public bool lastStop = false;
 
+    private void Start()
+    {
+        findWay = FindObjectOfType<FindWay>();
+    }
     // Когда автобус заезжает в зону триггера
     private void OnTriggerEnter(Collider other)
     {
@@ -27,6 +33,7 @@ public class BusStopTrigger : MonoBehaviour
         {
             isAtBusStop = false;
             Debug.Log("Автобус покинул остановку с индексом: " + indexStop);
+            findWay.ICanMoveAll();
         }
     }
     private void LateUpdate()
@@ -45,10 +52,10 @@ public class BusStopTrigger : MonoBehaviour
             GameObject spawnedObject = Instantiate(prefabToSpawn, transform.position, Quaternion.identity);
 
             // Передача индекса в скрипт префаба
-            PassengerMove prefabScript = spawnedObject.GetComponent<PassengerMove>();
+            WayTest prefabScript = spawnedObject.GetComponent<WayTest>();
             if (prefabScript != null)
-            {
-                prefabScript.SetIndex(indexStop);
+            {               
+                    prefabScript.SetIndex(indexStop, lastStop);               
             }
         }
     }

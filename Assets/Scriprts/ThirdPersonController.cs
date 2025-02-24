@@ -64,8 +64,8 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetBool("isRunning", isMoving && isRunning);
 
         // Отладка для проверки условий
-        Debug.Log("isWalking: " + (isMoving && !isRunning));
-        Debug.Log("isRunning: " + (isMoving && isRunning));
+        //Debug.Log("isWalking: " + (isMoving && !isRunning));
+        //Debug.Log("isRunning: " + (isMoving && isRunning));
     }
 
 
