@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class WayTest : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class WayTest : MonoBehaviour
     [SerializeField] private bool MoneyGive = false;
     [SerializeField] private bool seat = false;
     [SerializeField] private bool goseat = false;
-    [SerializeField] public AnimBase animator; 
+    [SerializeField] public AnimBase animator;
+    private NavMeshAgent agent;
 
 
     [SerializeField] private GameObject[] billPrefabs; // Массив префабов для купюр
@@ -43,25 +45,27 @@ public class WayTest : MonoBehaviour
     private BusController busController;
 
     private int _indexBusStop = -1;
+    [SerializeField] private int _indexSpawn = 0;
     [SerializeField] private int _indexOUT;
-    [SerializeField] private int _indexSpawn;
-
-
-    [SerializeField] private Transform[] WalkPoint;
-    private Transform targetWalk;
 
     void Start()
     {        
         busController = FindObjectOfType<BusController>();
+        agent = GetComponent<NavMeshAgent>();
         findWay = FindObjectOfType<FindWay>();
-        if (WalkPoint != null && WalkPoint.Length != 0)
-        {
-            targetWalk = WalkPoint[_indexOUT];
-        }
+       
+
         ButtonDoor.OnButtonPressed += ToggleDoor;
     }
     void Update()
-    {   if(_indexBusStop > _indexOUT)
+    {
+        AnimationSost();
+        if (!_Inbus && !_Outbus)
+        {
+            Walk();
+            return;
+        }      
+        if (_indexBusStop > _indexOUT && _indexOUT != 0)
         {
             _indexOUT = _indexBusStop;
         }
@@ -69,18 +73,18 @@ public class WayTest : MonoBehaviour
         {
             //тут система возрвщения на место но я ее непридумал когда двери на середине закрыты( почти придумал)
         }
-        if (_indexBusStop == _indexOUT)
+        if (_indexBusStop == _indexOUT && !isWaiting)
         {
             _Inbus = false;
             _Outbus = true;
-            findWay.ICanTMove();
+            
         }
         if (_indexBusStop == _indexSpawn)
         {
             _Inbus = true;
             _Outbus = false;
         }
-        if (_Inbus && _isAtBusStop && _areDoorsOpen || _Inbus && transform.parent != null)
+        if (_Inbus && _indexBusStop == _indexSpawn && _areDoorsOpen || _Inbus && transform.parent != null)
         {
             Gobus();
         }
@@ -88,8 +92,8 @@ public class WayTest : MonoBehaviour
         {
             Outbus();
         }
-        AnimationSost();
-
+       
+        Debug.Log("_indexBusStop"+ _indexBusStop);
 
     }
     private void AnimationSost()
@@ -104,7 +108,7 @@ public class WayTest : MonoBehaviour
             animator.Idle();
             return;
         }
-        else if (!seat && target != null)
+        else if (!seat && target != null || !_Inbus && !_Outbus)
         {
             Vector3 direction = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
 
@@ -158,6 +162,10 @@ public class WayTest : MonoBehaviour
         {
             findWay.Way(index, out Transform targetPoint, out int inde, out int RowExitOut);           
             index = inde;
+            if(index == 2)
+            {
+                agent.enabled = false;
+            }
             target = targetPoint;
             RowExit = RowExitOut;
         }
@@ -191,7 +199,7 @@ public class WayTest : MonoBehaviour
             return; 
         }
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, target.position) < 0.03f)
+        if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
             if (index == stayIndex && !MoneyGive)
             {
@@ -220,6 +228,7 @@ public class WayTest : MonoBehaviour
     {
         if (target == null)
         {
+            //findWay.ICanTMove();
             FindWayOut();
             return;
         }
@@ -229,6 +238,8 @@ public class WayTest : MonoBehaviour
             if(RowExit == -2)
             {
                 findWay.ICanMove();
+                _Outbus = false;
+                agent.enabled = true;
                 return;
             }
             target = null;
@@ -322,4 +333,28 @@ public class WayTest : MonoBehaviour
         else { _areDoorsOpen = false; }
     }
 
+    private void Walk()
+    {
+        target = findWay.Gotarget(_indexOUT);
+        agent.SetDestination(target.position);
+        animator.Walk();
+        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        {
+            ButtonDoor.OnButtonPressed -= ToggleDoor;
+            Destroy(gameObject);
+        }
+    }
+    public void SetIndex(int index, bool lastStop)
+    {
+        _indexSpawn = index;
+        
+        if (lastStop)
+        {
+            _indexOUT = 0;
+        }
+        else
+        {
+            _indexOUT = Random.Range(index, 5);
+        }
+    }
 }

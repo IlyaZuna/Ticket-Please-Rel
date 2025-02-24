@@ -7,8 +7,9 @@ public class FindWay : MonoBehaviour
     private Point[] points; // Массив точек
     private Point2[] points2; // Массив точек
     private Point3[] points3; // Массив точек   
-    private bool CanINBus;
+    
     private int summ = 0;
+    [SerializeField] private Transform[] WalkPoint;
     void Awake()
     {
         points = FindObjectsOfType<Point>();
@@ -22,7 +23,7 @@ public class FindWay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        Debug.Log("summ"+summ);
     }
     public void ICanTMove() 
     {
@@ -34,10 +35,15 @@ public class FindWay : MonoBehaviour
         summ--;
        
     }
+    public void ICanMoveAll()
+    {
+        summ = 0;
+    }
     public void WayExit(int RowExit,int index, out Transform target, out int RowExitOut)
     {
-        if(RowExit != -1 && RowExit != -3)
+        if(RowExit >= 0)
         {
+            ICanTMove();
             points3[index].Release();
             Debug.Log("RowExit  на выходе " + RowExit);
             target = points2[RowExit].transform;
@@ -153,6 +159,11 @@ public class FindWay : MonoBehaviour
         RowExitOut = RowExit;
     }
 
+    public Transform Gotarget( int index)
+    {
+        Transform target = WalkPoint[index];
+        return target;
+    }
     public Transform Seatpoints(int index)
     {
         return points3[index].transform;
