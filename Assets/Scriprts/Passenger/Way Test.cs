@@ -73,7 +73,7 @@ public class WayTest : MonoBehaviour
         {
             //тут система возрвщения на место но я ее непридумал когда двери на середине закрыты( почти придумал)
         }
-        if (_indexBusStop == _indexOUT && !isWaiting)
+        if (_indexBusStop == _indexOUT && !isWaiting && MoneyGive)
         {
             _Inbus = false;
             _Outbus = true;
