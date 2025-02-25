@@ -354,7 +354,8 @@ public class WayTest : MonoBehaviour
         }
         else
         {
-            _indexOUT = Random.Range(index, 5);
+            _indexOUT = Random.Range(index+1, 6);
         }
+        Debug.Log("Выхожу" + _indexOUT);
     }
 }
