@@ -8,7 +8,7 @@ public class WayTest : MonoBehaviour
     private Transform target;
     private FindWay findWay;
     private int index = 0;
-    private float speed = 5f;
+    [SerializeField]private float speed = 5f;
     private int RowExit = -2;
     public float rotationSpeed = 5f;
     [SerializeField] private int stayIndex = 4;
@@ -354,7 +354,7 @@ public class WayTest : MonoBehaviour
         }
         else
         {
-            _indexOUT = Random.Range(index, 5);
+            _indexOUT = Random.Range(index+1, 5);
         }
     }
 }
