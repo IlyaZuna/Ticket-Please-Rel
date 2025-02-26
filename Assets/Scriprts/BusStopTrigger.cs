@@ -87,6 +87,11 @@ public class BusStopTrigger : MonoBehaviour
                     // Случайный угол поворота
                     float randomRotationY = Random.Range(0f, 360f);
                     spawnedObject.transform.rotation = Quaternion.Euler(0, baseRotationY + randomRotationY, 0);
+                    WayTest prefabScript = spawnedObject.GetComponent<WayTest>();
+                    if (prefabScript != null)
+                    {
+                        prefabScript.SetIndex(indexStop, lastStop);
+                    }
                 }
             }
         }
