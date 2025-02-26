@@ -483,8 +483,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 4.4, y: 6.02, z: 7.17}
-  m_Center: {x: -4.26, y: -1.81, z: -1.71}
+  m_Size: {x: 4.14, y: 7.02, z: 5.8}
+  m_Center: {x: -4.04, y: 0.35, z: 1.45}
 --- !u!114 &9326451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10611,9 +10611,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
   indexStop: 6
   bab: 1
   lastStop: 1
+  spawnAreaSize: {x: 5, y: 3}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!1 &314976266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -13102,9 +13106,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
   indexStop: 4
   bab: 1
   lastStop: 0
+  spawnAreaSize: {x: 5, y: 3}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!65 &407035209
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26823,9 +26831,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
   indexStop: 5
   bab: 1
   lastStop: 0
+  spawnAreaSize: {x: 5, y: 3}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!4 &785178432 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 22106dc63dce41746ad234a91af2d657, type: 3}
@@ -32749,7 +32761,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3295254532853068550, guid: 452710a97abbfba4fa714ba0fdaa56c1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 190.75
+      value: 198.1
       objectReference: {fileID: 0}
     - target: {fileID: 3295254532853068550, guid: 452710a97abbfba4fa714ba0fdaa56c1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -32757,7 +32769,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3295254532853068550, guid: 452710a97abbfba4fa714ba0fdaa56c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 276.14
+      value: 307.57
       objectReference: {fileID: 0}
     - target: {fileID: 3295254532853068550, guid: 452710a97abbfba4fa714ba0fdaa56c1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48687,7 +48699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8875742496828745992, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 195.09
+      value: 206.1
       objectReference: {fileID: 0}
     - target: {fileID: 8875742496828745992, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -48695,7 +48707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8875742496828745992, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 278.2
+      value: 306.11
       objectReference: {fileID: 0}
     - target: {fileID: 8875742496828745992, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -50357,9 +50369,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
   indexStop: 2
   bab: 1
   lastStop: 0
+  spawnAreaSize: {x: 5, y: 3}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!1001 &1311916161
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53300,7 +53316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8384065709355081088, guid: 1c11cc3d021f0cd45801ef4c2cbb87fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 191.05
+      value: 190.71
       objectReference: {fileID: 0}
     - target: {fileID: 8384065709355081088, guid: 1c11cc3d021f0cd45801ef4c2cbb87fc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -53308,7 +53324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8384065709355081088, guid: 1c11cc3d021f0cd45801ef4c2cbb87fc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 277.02
+      value: 274.62
       objectReference: {fileID: 0}
     - target: {fileID: 8384065709355081088, guid: 1c11cc3d021f0cd45801ef4c2cbb87fc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -68880,9 +68896,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: 0, z: 0}
   indexStop: 3
   bab: 1
   lastStop: 0
+  spawnAreaSize: {x: 5, y: 3}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!1001 &1728800742
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -76517,9 +76537,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: -3.48, z: 0}
   indexStop: 0
   bab: 7
   lastStop: 0
+  spawnAreaSize: {x: 2.58, y: 10.01}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!1 &1883633970
 GameObject:
   m_ObjectHideFlags: 0
@@ -88994,7 +89018,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7173730107704654822, guid: 706d828cb26d40245988d17e1f4b43a7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7173730107704654822, guid: 706d828cb26d40245988d17e1f4b43a7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -89653,9 +89677,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+  spawnOffset: {x: 0, y: 0, z: -1.85}
   indexStop: 1
-  bab: 1
+  bab: 11
   lastStop: 0
+  spawnAreaSize: {x: 10, y: 3.16}
+  minDistanceBetweenPassengers: 1
+  baseRotationY: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
