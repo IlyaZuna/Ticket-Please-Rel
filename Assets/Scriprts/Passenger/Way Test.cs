@@ -28,8 +28,6 @@ public class WayTest : MonoBehaviour
 
 
 
-    private int change = 0;
-    [SerializeField] private int ticketPrice = 30;
     public int driverChange;
 
 
@@ -256,30 +254,16 @@ public class WayTest : MonoBehaviour
             MoneyGive = true;
             SpawnBill(billGiven);
             Debug.Log("Пассажир дал купюру: " + billGiven);
-            change = billGiven - ticketPrice; // Рассчитываем сдачу
+           
         }
-        Debug.Log("Оплата произведена! Сдача: " + change);
-        driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
-
-        if (Input.GetKeyDown(KeyCode.Q))
+            
+       
+        DriverIncome.Instance.Money(billGiven, out isWaiting);
+        if (!isWaiting)
         {
-            if (driverChange >= change)
-            {
-                //DriverIncome.Instance.AddIncome(ticketPrice);
-                Debug.Log("Пассажир получил сдачу: " + driverChange);
-                DriverIncome.Instance.GivepASAJChange(driverChange); // Выдаем сдачу пассажиру                
-                isWaiting = false;                
-                Destroy(spawnedBill);               
-                return;
-            }
-            else
-            {
-                Debug.Log("Мало");
-            }
+            Destroy(spawnedBill);
         }
-
-
-
+        Debug.Log("isWaiting " + isWaiting);
     }
     private int GetRandomBill()
     {
