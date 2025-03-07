@@ -8,7 +8,7 @@ public class WayTest : MonoBehaviour
     private Transform target;
     private FindWay findWay;
     private int index = 0;
-    [SerializeField]private float speed = 5f;
+    [SerializeField] private float speed = 5f;
     private int RowExit = -2;
     public float rotationSpeed = 5f;
     [SerializeField] private int stayIndex = 4;
@@ -21,19 +21,17 @@ public class WayTest : MonoBehaviour
 
 
     [SerializeField] private GameObject[] billPrefabs; // Массив префабов для купюр
-    [SerializeField] private Transform spawnPointMoneyPasajira; 
+    [SerializeField] private Transform spawnPointMoneyPasajira;
     private GameObject billPrefab;
-    private GameObject spawnedBill;   
+    private GameObject spawnedBill;
     private int billGiven; // Купюра, которую даёт пассажир
 
 
 
-    private int change = 0;
-    [SerializeField] private int ticketPrice = 30;
     public int driverChange;
 
 
-    
+
     [SerializeField] private Transform childObject;
     [SerializeField] private Transform parentObject;// Оплатил ли пассажир
 
@@ -49,11 +47,11 @@ public class WayTest : MonoBehaviour
     [SerializeField] private int _indexOUT;
 
     void Start()
-    {        
+    {
         busController = FindObjectOfType<BusController>();
         agent = GetComponent<NavMeshAgent>();
         findWay = FindObjectOfType<FindWay>();
-       
+
 
         ButtonDoor.OnButtonPressed += ToggleDoor;
     }
@@ -64,7 +62,7 @@ public class WayTest : MonoBehaviour
         {
             Walk();
             return;
-        }      
+        }
         if (_indexBusStop > _indexOUT && _indexOUT != 0)
         {
             _indexOUT = _indexBusStop;
@@ -77,7 +75,7 @@ public class WayTest : MonoBehaviour
         {
             _Inbus = false;
             _Outbus = true;
-            
+
         }
         if (_indexBusStop == _indexSpawn)
         {
@@ -92,8 +90,8 @@ public class WayTest : MonoBehaviour
         {
             Outbus();
         }
-       
-        Debug.Log("_indexBusStop"+ _indexBusStop);
+
+        Debug.Log("_indexBusStop" + _indexBusStop);
 
     }
     private void AnimationSost()
@@ -134,7 +132,7 @@ public class WayTest : MonoBehaviour
     }
     private void Outbus()
     {
-        seat=false;
+        seat = false;
         _Inbus = false;
         MoveToTargetExit();
 
@@ -143,7 +141,7 @@ public class WayTest : MonoBehaviour
     {
         _Outbus = false;
         if (!isWaiting && !seat)
-        {          
+        {
             MoveToTarget();
         }
         else if (isWaiting)
@@ -157,12 +155,12 @@ public class WayTest : MonoBehaviour
     }
     public void FindWay()
     {
-        Debug.Log("RowExit"+ RowExit);
+        Debug.Log("RowExit" + RowExit);
         if (RowExit == -2)
         {
-            findWay.Way(index, out Transform targetPoint, out int inde, out int RowExitOut);           
+            findWay.Way(index, out Transform targetPoint, out int inde, out int RowExitOut);
             index = inde;
-            if(index == 2)
+            if (index == 2)
             {
                 agent.enabled = false;
             }
@@ -176,27 +174,27 @@ public class WayTest : MonoBehaviour
             index = inde;
             RowExit = RowExitOut;
         }
-        else if(RowExit >= 0)
+        else if (RowExit >= 0)
         {
             Debug.Log("иду сидеть");
             target = findWay.Seatpoints(index);
             goseat = true;
 
         }
-       
+
     }
     private void MoveToTarget()
     {
-        
-        if (target == null) 
+
+        if (target == null)
         {
             Debug.Log("HUI");
             if (!seat)
             {
                 FindWay();
             }
-            
-            return; 
+
+            return;
         }
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
@@ -220,7 +218,7 @@ public class WayTest : MonoBehaviour
     public void FindWayOut()
     {
         Debug.Log("RowExit  на Входе " + RowExit);
-        findWay.WayExit(RowExit,index, out Transform targetPoint, out int RowExitOut);
+        findWay.WayExit(RowExit, index, out Transform targetPoint, out int RowExitOut);
         RowExit = RowExitOut;
         target = targetPoint;
     }
@@ -234,8 +232,8 @@ public class WayTest : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
         if (Vector3.Distance(transform.position, target.position) < 0.03f)
-        {            
-            if(RowExit == -2)
+        {
+            if (RowExit == -2)
             {
                 findWay.ICanMove();
                 _Outbus = false;
@@ -256,30 +254,16 @@ public class WayTest : MonoBehaviour
             MoneyGive = true;
             SpawnBill(billGiven);
             Debug.Log("Пассажир дал купюру: " + billGiven);
-            change = billGiven - ticketPrice; // Рассчитываем сдачу
-        }
-        Debug.Log("Оплата произведена! Сдача: " + change);
-        driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
 
-        if (Input.GetKeyDown(KeyCode.Q))
+        }
+
+
+        DriverIncome.Instance.Money(billGiven, out isWaiting);
+        if (!isWaiting)
         {
-            if (driverChange >= change)
-            {
-                //DriverIncome.Instance.AddIncome(ticketPrice);
-                Debug.Log("Пассажир получил сдачу: " + driverChange);
-                DriverIncome.Instance.GivepASAJChange(driverChange); // Выдаем сдачу пассажиру                
-                isWaiting = false;                
-                Destroy(spawnedBill);               
-                return;
-            }
-            else
-            {
-                Debug.Log("Мало");
-            }
+            Destroy(spawnedBill);
         }
-
-
-
+        Debug.Log("isWaiting " + isWaiting);
     }
     private int GetRandomBill()
     {
@@ -347,14 +331,14 @@ public class WayTest : MonoBehaviour
     public void SetIndex(int index, bool lastStop)
     {
         _indexSpawn = index;
-        
+
         if (lastStop)
         {
             _indexOUT = 0;
         }
         else
         {
-            _indexOUT = Random.Range(index+1, 5);
+            _indexOUT = Random.Range(index + 1, 5);
         }
     }
 }

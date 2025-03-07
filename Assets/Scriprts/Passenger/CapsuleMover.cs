@@ -297,15 +297,15 @@ public class CapsuleMover : MonoBehaviour
             Debug.Log("Оплата произведена! Сдача: " + change);
 
             // Получаем сдачу от водителя
-            int driverChange = DriverIncome.Instance.GetChange();
-            if (Input.GetKeyDown(KeyCode.Q) && driverChange > 0)
-            {
-                Debug.Log("Пассажир получил сдачу: " + driverChange);
-                DriverIncome.Instance.GiveChange(driverChange); // Выдаем сдачу пассажиру
-                Spisok1 = true;
-                MoneyGive = false;
-                return;// Помечаем, что пассажир оплатил
-            }
+            //int driverChange = DriverIncome.Instance.GetChange();
+            //if (Input.GetKeyDown(KeyCode.Q) && driverChange > 0)
+            //{
+                //Debug.Log("Пассажир получил сдачу: " + driverChange);
+               // DriverIncome.Instance.GiveChange(driverChange); // Выдаем сдачу пассажиру
+               // Spisok1 = true;
+              //  MoneyGive = false;
+               // return;// Помечаем, что пассажир оплатил
+            //}
 
 
         }

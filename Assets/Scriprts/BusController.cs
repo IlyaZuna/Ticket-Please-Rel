@@ -18,6 +18,9 @@ public class BusController : MonoBehaviour
     public Transform exitpoint;
     [SerializeField] Transform ruder;
 
+    public float brakeDrag = 5f; // Сопротивление при торможении
+    private float normalDrag; // Обычное сопротивление
+
     private Rigidbody rb;
     public float maxSteerAngle = 30f;  // Максимальный угол поворота колес
     private float currentRotation = 0f;  // Текущий угол поворота руля
@@ -35,6 +38,7 @@ public class BusController : MonoBehaviour
     {
         stops = FindObjectsOfType<BusStopTrigger>();
         rb = GetComponent<Rigidbody>(); // Получаем Rigidbody автобуса
+        normalDrag = rb.drag; // Запоминаем стандартное сопротивление
     }
 
     void Update()
@@ -60,6 +64,15 @@ public class BusController : MonoBehaviour
         UpdateWheelPosition(rearLeftWheel, rearLeftWheelModel);
         UpdateWheelPosition(rearRightWheel, rearRightWheelModel);
         UpdateCurrentStop();
+        // Торможение на пробел
+        if (Input.GetKey(KeyCode.Space))
+        {
+            SetBraking(true);
+        }
+        else
+        {
+            SetBraking(false);
+        }
     }
     // Обновляем позиции и вращения колес
     void UpdateWheelPosition(WheelCollider wheelCollider, Transform wheelModel)
@@ -89,6 +102,10 @@ public class BusController : MonoBehaviour
             }
         }
 
+    }
+    public void SetBraking(bool isBraking)
+    {
+        rb.drag = isBraking ? brakeDrag : normalDrag;
     }
 
 }

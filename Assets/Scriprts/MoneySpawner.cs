@@ -7,11 +7,12 @@ public class MoneySpawner : MonoBehaviour
     [SerializeField] private Transform parentObject; // Родительский объект для всех денег
     [SerializeField] private float stackOffset = 0.1f; // Расстояние между деньгами в стопке
     [SerializeField] private Transform spawnPoz;
+
     private int stackCount = 0; // Счетчик для отслеживания высоты стопки
     private List<GameObject> spawnedMoney = new List<GameObject>(); // Список для хранения заспавненных объектов
-    public void SpawnMoney(GameObject prefab, int value)
+    public void SpawnMoney(GameObject prefab, int value, Vector3 newScale)
     {
-         
+
         // Вычисляем позицию для нового объекта с учетом стопки
         Vector3 spawnPosition = spawnPoz.position + new Vector3(0, stackCount * stackOffset, 0);
 
@@ -26,7 +27,7 @@ public class MoneySpawner : MonoBehaviour
         }
 
         // Настраиваем масштаб
-        newMoney.transform.localScale = new Vector3(20, 10, 20);
+        newMoney.transform.localScale = newScale;
         spawnedMoney.Add(newMoney);
         // Увеличиваем счетчик стопки
         stackCount++;
@@ -52,6 +53,6 @@ public class MoneySpawner : MonoBehaviour
         // Очищаем список и сбрасываем счетчик
         spawnedMoney.Clear();
         stackCount = 0;
-        
+
     }
 }
