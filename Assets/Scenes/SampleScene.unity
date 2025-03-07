@@ -440,7 +440,7 @@ Transform:
   m_GameObject: {fileID: 8613824}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -128.28, y: 172.17232, z: -110.251236}
+  m_LocalPosition: {x: -148.7, y: 172.17232, z: -116.36}
   m_LocalScale: {x: 2, y: 1.5, z: 1.5000002}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48819,6 +48819,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1674075903503987072, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1916076616}
+    - targetCorrespondingSourceObject: {fileID: 1674075903503987072, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1916076618}
     - targetCorrespondingSourceObject: {fileID: 6068010067206105335, guid: b9f5793a06d5546488e124629d33dd1b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 146312244}
@@ -57491,7 +57494,7 @@ Transform:
   m_GameObject: {fileID: 1470475594}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -72.46388, y: 173.44104, z: 1.2087555}
+  m_LocalPosition: {x: -93.37, y: 173.44104, z: -17.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76537,11 +76540,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+<<<<<<< Updated upstream
   spawnOffset: {x: 0, y: -3.48, z: 0}
   indexStop: 0
   bab: 7
   lastStop: 0
   spawnAreaSize: {x: 2.58, y: 10.01}
+=======
+  spawnOffset: {x: 0, y: -3.63, z: 0}
+  indexStop: 0
+  bab: 7
+  lastStop: 0
+  spawnAreaSize: {x: 4.59, y: 11.45}
+>>>>>>> Stashed changes
   minDistanceBetweenPassengers: 1
   baseRotationY: 0
 --- !u!1 &1883633970
@@ -77819,6 +77830,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moneySpawner: {fileID: 709525661}
   MoneyGive: 0
+--- !u!65 &1916076618
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1279740048}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.06, y: 5, z: 17.96}
+  m_Center: {x: 0, y: 2.5, z: 5.73}
 --- !u!1 &1916838342 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: b8ee657c6800ab849bb30b4375d02323, type: 3}
@@ -89854,11 +89886,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabToSpawn: {fileID: 1159815892}
   isAtBusStop: 0
+<<<<<<< Updated upstream
   spawnOffset: {x: 0, y: 0, z: -1.85}
   indexStop: 1
   bab: 11
   lastStop: 0
   spawnAreaSize: {x: 10, y: 3.16}
+=======
+  spawnOffset: {x: 1.55, y: 0.5, z: -2.9}
+  indexStop: 1
+  bab: 15
+  lastStop: 0
+  spawnAreaSize: {x: 15.8, y: 6.48}
+>>>>>>> Stashed changes
   minDistanceBetweenPassengers: 1
   baseRotationY: 0
 --- !u!1660057539 &9223372036854775807

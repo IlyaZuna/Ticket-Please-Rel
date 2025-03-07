@@ -92,7 +92,11 @@ public class BusStopTrigger : MonoBehaviour
                     {
                         prefabScript.SetIndex(indexStop, lastStop);
                     }
+<<<<<<< Updated upstream
                 }
+=======
+                }                   
+>>>>>>> Stashed changes
             }
         }
     }
@@ -104,4 +108,9 @@ public class BusStopTrigger : MonoBehaviour
         Vector3 center = transform.position + spawnOffset;
         Gizmos.DrawWireCube(center, new Vector3(spawnAreaSize.x, 0.1f, spawnAreaSize.y));
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+
+>>>>>>> Stashed changes
