@@ -183,8 +183,8 @@ public class PassengerMove : MonoBehaviour
             Debug.Log("Пассажир дал купюру: " + billGiven);
             change = billGiven - ticketPrice; // Рассчитываем сдачу
         }
-        Debug.Log("Оплата произведена! Сдача: " + change);
-        driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
+       // Debug.Log("Оплата произведена! Сдача: " + change);
+       // driverChange = DriverIncome.Instance.GetChange();//ТЕКУЩАЯ СДАЧА
 
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -192,7 +192,7 @@ public class PassengerMove : MonoBehaviour
             {
                 //DriverIncome.Instance.AddIncome(ticketPrice);
                 Debug.Log("Пассажир получил сдачу: " + driverChange);
-                DriverIncome.Instance.GivepASAJChange(driverChange); // Выдаем сдачу пассажиру                
+                //DriverIncome.Instance.GivepASAJChange(driverChange); // Выдаем сдачу пассажиру                
                 isWaiting = false;
                 points[currentIndex].Release();
                 Destroy(spawnedBill);

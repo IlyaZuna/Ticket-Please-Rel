@@ -3,10 +3,11 @@ using UnityEngine;
 public class DriverIncome : MonoBehaviour
 {
     private static DriverIncome _instance;  // Ссылка на экземпляр класса
-
-    private int totalIncome;
-    [SerializeField] private MoneySpawner moneySpawner; // Ссылка на объект-спавнер
-    // Статическое свойство для получения единственного экземпляра класса
+    private int income;
+    private int totalChange;
+    [SerializeField] private int ticketPrice = 30;
+    [SerializeField] private MoneySpawner moneySpawner; // Ссылка на объект-спавнер    
+    [SerializeField] private MoneySpawner MmoneySpawner; // Ссылка на объект-спавнер    
     public static DriverIncome Instance
     {
         get
@@ -19,34 +20,32 @@ public class DriverIncome : MonoBehaviour
         }
     }
 
+
     public bool MoneyGive = false;  // Если пассажир дал деньги
 
-    // Метод для увеличения дохода
+
     public void AddIncome(int amount)
     {
-        totalIncome += amount;
-        Debug.Log($"дениги водителя увеличен на {amount}. Текущий доход: {totalIncome}");
+        totalChange += amount;
+        Debug.Log($"Сдача {amount}. Текущая сдача: {totalChange}");
     }
 
-    // Метод для получения сдачи
-    public int GetChange()
+    public void Money(int _money, out bool _Sell)
     {
-        return totalIncome;  
-    }   
 
-    // Метод для выдачи сдачи
-    public void GiveChange(int billValue)
-    {
-        totalIncome += billValue; // Увеличиваем сдачу
-        Debug.Log($"Сдача увеличена на {billValue}. Текущая сдача: {totalIncome}");
+        if (Input.GetKeyDown(KeyCode.Q) && totalChange >= _money - ticketPrice)
+        {
+            _Sell = false;
+
+            moneySpawner.ResetStack();
+            MmoneySpawner.ResetStack();
+            income = income - totalChange + _money;
+            totalChange = 0;
+            return;
+        }
+        _Sell = true;
 
     }
-    // Метод для выдачи сдачи
-    public void GivepASAJChange(int change)
-    {
-        totalIncome = 0;
-        Debug.Log($"Водитель отдал сдачу: {change}. Текущий доход: {totalIncome}");
-        moneySpawner.ResetStack();
-        MoneyGive = true;
-    }
+
 }
+

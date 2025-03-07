@@ -5,7 +5,7 @@ using UnityEngine;
 public class BiilllEtMoney : MonoBehaviour
 {
     public int billValue; // Номинал купюры
-    
+    [SerializeField] private Vector3 newScale;
     public GameObject visualPrefab; // Префаб купюры для отображения рядом
     [SerializeField] private MoneySpawner moneySpawner; // Ссылка на объект-спавнер
 
@@ -14,12 +14,12 @@ public class BiilllEtMoney : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             // Увеличиваем сдачу
-            DriverIncome.Instance.GiveChange(billValue);
+            DriverIncome.Instance.AddIncome(billValue);
 
             // Спавним визуальную копию купюры
             if (visualPrefab != null)
             {
-                moneySpawner.SpawnMoney(visualPrefab,billValue);
+                moneySpawner.SpawnMoney(visualPrefab, billValue, newScale);
 
 
             }
