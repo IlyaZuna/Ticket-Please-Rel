@@ -86,7 +86,9 @@ public class StationManagerInteraction : MonoBehaviour
         {
             isPlayerInRange = false;
             if (interactionPrompt != null) interactionPrompt.SetActive(false); // Скрываем "E" при выходе
-            if (arrowIndicator != null && !isDialogueActive) arrowIndicator.SetActive(true); // Восстанавливаем стрелку
+            // Показываем стрелку только если диалог не завершён
+            if (arrowIndicator != null && !isDialogueActive && !hasCompletedFirstDialogue)
+                arrowIndicator.SetActive(true);
             if (isDialogueActive)
             {
                 EndDialogueWithoutTasks(); // Прерываем диалог при выходе
@@ -125,6 +127,7 @@ public class StationManagerInteraction : MonoBehaviour
         hasCompletedFirstDialogue = true; // Диалог завершён
         hasShownTasks = true; // Задачи показаны
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
+        if (arrowIndicator != null) arrowIndicator.SetActive(false); // Отключаем маркер навсегда
         ShowTasks();
         if (interactionPrompt != null) interactionPrompt.SetActive(false); // Скрываем "E" после задач
     }
@@ -133,7 +136,8 @@ public class StationManagerInteraction : MonoBehaviour
     {
         isDialogueActive = false;
         if (dialoguePanel != null) dialoguePanel.SetActive(false);
-        if (arrowIndicator != null) arrowIndicator.SetActive(true); // Возвращаем стрелку
+        // Показываем стрелку только если диалог не завершён
+        if (arrowIndicator != null && !hasCompletedFirstDialogue) arrowIndicator.SetActive(true);
     }
 
     void ShowTasks()

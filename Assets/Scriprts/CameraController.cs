@@ -29,11 +29,11 @@ public class CameraController : MonoBehaviour
 
         // Инвертируем ось Y для корректного поворота камеры вверх и вниз
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -30f, 30f);  // Ограничение угла поворота камеры вверх и вниз
+        xRotation = Mathf.Clamp(xRotation, -35f, 35f);  // Ограничение угла поворота камеры вверх и вниз
 
         // Поворот по оси Y (влево и вправо)
         yRotation += mouseX;
-        yRotation = Mathf.Clamp(yRotation, 120f, 340f);  // Ограничение угла поворота камеры влево и вправо
+        yRotation = Mathf.Clamp(yRotation, 130f, 340f);  // Ограничение угла поворота камеры влево и вправо
 
         // Применяем повороты к камере
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
