@@ -7,6 +7,7 @@ public class DriverIncome : MonoBehaviour
     private int totalChange;
     [SerializeField] private int ticketPrice = 30;
     [SerializeField] private MoneySpawner moneySpawner; // —сылка на объект-спавнер    
+    [SerializeField] private MoneySpawner MmoneySpawner; // —сылка на объект-спавнер    
     public static DriverIncome Instance
     {
         get
@@ -37,7 +38,9 @@ public class DriverIncome : MonoBehaviour
             _Sell = false;
 
             moneySpawner.ResetStack();
+            MmoneySpawner.ResetStack();
             income = income - totalChange + _money;
+            totalChange = 0;
             return;
         }
         _Sell = true;

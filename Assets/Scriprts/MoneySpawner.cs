@@ -32,7 +32,7 @@ public class MoneySpawner : MonoBehaviour
         // Увеличиваем счетчик стопки
         stackCount++;
 
-        // (Опционально) Добавить компонент, чтобы объект знал свою ценность
+        
         var billComponent = newMoney.GetComponent<BiilllEtMoney>();
         if (billComponent != null)
         {

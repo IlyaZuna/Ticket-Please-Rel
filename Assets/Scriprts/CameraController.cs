@@ -42,41 +42,43 @@ public class CameraController : MonoBehaviour
     private void RayCaster()
     {
         Vector3 rayOrigin = playerCamera.transform.position;
+        Vector3 rayDirection = playerCamera.transform.forward; // Направление вперед от камеры
 
-        // Направление луча. Это может быть любое направление от камеры, например, вперед по оси Z
-        Vector3 rayDirection = playerCamera.transform.forward;  // Направление вперед от камеры
-
-        // Создаем рэй из камеры
         Ray ray = new Ray(rayOrigin, rayDirection);
-        int layerMask = ~LayerMask.GetMask("Bus");
+        int layerMask = ~LayerMask.GetMask("Bus"); // Игнорируем слой "Bus"
 
         RaycastHit hit;
+
+        // Список тегов, которые нужно игнорировать
+        string[] ignoredTags = { "BusStop" };
 
         // Выполняем рэйкаст с ограничением дистанции
         if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
         {
-            // Проверяем, попал ли луч в объект
-            Debug.Log($"Рэй попал в объект: {hit.collider.name}");
-            IInteractable interactable = hit.collider.GetComponent<IInteractable>();  // Получаем компонент IInteractable на объекте
-            if (Input.GetMouseButtonDown(0))
+            // Проверяем, попал ли луч в объект с игнорируемым тегом
+            foreach (string tag in ignoredTags)
             {
-                if (interactable != null)
+                if (hit.collider.CompareTag(tag))
                 {
-                    interactable.Interact();  // Вызываем метод Interact() если объект поддерживает IInteractable
+                    return; // Выходим из метода, если объект имеет игнорируемый тег
                 }
             }
-            // Проверяем, есть ли компонент BillEtMoney на объекте, в который попал луч
+
+            Debug.Log($"Рэй попал в объект: {hit.collider.name}");
+
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (Input.GetMouseButtonDown(0) && interactable != null)
+            {
+                interactable.Interact();
+            }
+
+            // Проверяем, есть ли компонент BillEtMoney
             var bill = hit.collider.GetComponent<BiilllEtMoney>();
             if (bill != null)
             {
-                // Если компонент найден, делаем что-то с этим объектом
                 Debug.Log("Попали в BillEtMoney объект!");
-                // Здесь можно вызвать метод, например, OnMouseDown()
-                bill.OnMouseDown(); // Вызов метода из BillEtMoney компонента
+                bill.OnMouseDown();
             }
         }
-
-
-
     }
 }

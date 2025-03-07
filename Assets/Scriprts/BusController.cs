@@ -18,7 +18,7 @@ public class BusController : MonoBehaviour
     public Transform exitpoint;
     [SerializeField] Transform ruder;
 
-    public float brakeDrag = 5f; // Сопротивление при торможении
+    public float brakeDrag = 2f; // Сопротивление при торможении
     private float normalDrag; // Обычное сопротивление
 
     private Rigidbody rb;
@@ -53,7 +53,7 @@ public class BusController : MonoBehaviour
         // Двигаем автобус вперед/назад
         rearLeftWheel.motorTorque = move * 300f;
         rearRightWheel.motorTorque = move * 300f;
-
+        Debug.Log(move * 300f);
 
         // Поворот колес
         frontLeftWheel.steerAngle = turn;
