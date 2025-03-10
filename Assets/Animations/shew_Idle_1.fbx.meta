@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c7f2a993c813896488fb956dd5a6ecb0
+guid: a10f7c5243d8ade4984348d2c79d3b6e
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: mixamo.com
+      name: Warrior Idle
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 31
+      lastFrame: 344
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -106,7 +106,8 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - d3e381866fe06c0479f59fda0fb98520
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
