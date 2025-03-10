@@ -9,12 +9,24 @@ public class Dworn : MonoBehaviour
     public float maxAngle = 30f; // Максимальный угол наклона
     [SerializeField]private float currentAngle;
     private bool movingForward = true;
+    private bool ON = false;
 
     void Update()
     {
-        RotateWipers();
+        if (ON)
+        {
+            RotateWipers();
+        }
+        else
+        {
+            GoStartPoz();
+        }
     }
-
+    public void ONN( )
+    {
+        ON = !ON;
+    }
+    
     void RotateWipers()
     {
         // Вычисляем угол поворота
@@ -39,5 +51,18 @@ public class Dworn : MonoBehaviour
 
         // Применяем поворот
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, currentAngle, transform.localRotation.eulerAngles.z);
+    }
+    private void GoStartPoz()
+    {
+        if (currentAngle <= minAngle)
+        {
+            currentAngle = minAngle;          
+            currentAngle -= speed * Time.deltaTime;
+            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, currentAngle, transform.localRotation.eulerAngles.z);
+        }
+        else
+        {
+            return;
+        }
     }
 }
