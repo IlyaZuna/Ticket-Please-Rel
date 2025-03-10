@@ -7,9 +7,6 @@ public class BusController : MonoBehaviour
 {
     public float moveSpeed = 500f;   // Скорость движения
     public float turnSpeed = 300f;   // Скорость поворота
-    [SerializeField] public float maxFuel = 100f;  // Максимальный объем топлива
-    public float currentFuel;     // Текущее количество топлива
-    public float fuelConsumptionRate = 0.1f; // Расход топлива (л/с при максимальной нагрузке)
     public WheelCollider frontLeftWheel;
     public WheelCollider frontRightWheel;
     public WheelCollider rearLeftWheel;
@@ -19,15 +16,16 @@ public class BusController : MonoBehaviour
     public Transform rearLeftWheelModel;
     public Transform rearRightWheelModel;
     public Transform exitpoint;
-    public bool ON =false;
     [SerializeField] Transform ruder;
 
     public float brakeDrag = 2f; // Сопротивление при торможении
     private float normalDrag; // Обычное сопротивление
 
     private Rigidbody rb;
-    public float maxSteerAngle = 30f;  // Максимальный угол поворота колес    
-    public float turnSpeedudder = 100f;  // Скорость вращения руля   
+    public float maxSteerAngle = 30f;  // Максимальный угол поворота колес
+    private float currentRotation = 0f;  // Текущий угол поворота руля
+    public float turnSpeedudder = 100f;  // Скорость вращения руля
+    private float maxRotation = 440f;  // 2.5 оборота (360 * 2.5)
     public bool isDriver = false;
 
     // Новые переменные для состояния дверей и остановки
@@ -41,20 +39,42 @@ public class BusController : MonoBehaviour
         stops = FindObjectsOfType<BusStopTrigger>();
         rb = GetComponent<Rigidbody>(); // Получаем Rigidbody автобуса
         normalDrag = rb.drag; // Запоминаем стандартное сопротивление
-        currentFuel = maxFuel;
     }
 
     void Update()
     {
-        if (ON)
+        // Движение автобуса
+        float move = -Input.GetAxis("Vertical") * moveSpeed; // W/S или стрелки
+        float turn = Input.GetAxis("Horizontal") * turnSpeed; // A/D или стрелки
+
+        // Ограничиваем угол поворота
+        turn = Mathf.Clamp(turn, -maxSteerAngle, maxSteerAngle);
+
+        // Двигаем автобус вперед/назад
+        rearLeftWheel.motorTorque = move * 300f;
+        rearRightWheel.motorTorque = move * 300f;
+        Debug.Log(move * 300f);
+
+        // Поворот колес
+        frontLeftWheel.steerAngle = turn;
+        frontRightWheel.steerAngle = turn;
+        // Обновляем модели колес
+        UpdateWheelPosition(frontLeftWheel, frontLeftWheelModel);
+        UpdateWheelPosition(frontRightWheel, frontRightWheelModel);
+        UpdateWheelPosition(rearLeftWheel, rearLeftWheelModel);
+        UpdateWheelPosition(rearRightWheel, rearRightWheelModel);
+        UpdateCurrentStop();
+        // Торможение на пробел
+        if (Input.GetKey(KeyCode.Space))
         {
-            MoveBus();
-        } 
+            SetBraking(true);
+        }
+        else
+        {
+            SetBraking(false);
+        }
     }
-    public void Engine(bool state)
-    {
-        ON = state;
-    }
+    // Обновляем позиции и вращения колес
     void UpdateWheelPosition(WheelCollider wheelCollider, Transform wheelModel)
     {
         Vector3 pos;
@@ -87,64 +107,5 @@ public class BusController : MonoBehaviour
     {
         rb.drag = isBraking ? brakeDrag : normalDrag;
     }
-    public float GetSpeed()
-    {
-        float speed = rb.velocity.magnitude * 3.6f; ;        
-        return speed;
-    }
-    public float GetFuil()
-    {
-        
-        return currentFuel;
-    }
 
-    public void FuilOut()
-    {
-        float speed = rb.velocity.magnitude * 3.6f; // Скорость в км/ч
-        float fuelConsumption = fuelConsumptionRate * (speed / 100f); // Расход зависит от скорости
-        currentFuel -= fuelConsumption * Time.deltaTime;
-        currentFuel = Mathf.Clamp(currentFuel, 0, maxFuel); // Чтобы не уходило в минус
-    }
-
-    public void MoveBus()
-    {
-        // Движение автобуса
-        float move = -Input.GetAxis("Vertical") * moveSpeed; // W/S или стрелки
-        float turn = Input.GetAxis("Horizontal") * turnSpeed; // A/D или стрелки
-
-        if (currentFuel <= 0)
-        {
-            move = 0; // Останавливаем автобус
-            Debug.Log("Топливо закончилось! Заправьтесь!");
-        }
-        // Ограничиваем угол поворота
-        turn = Mathf.Clamp(turn, -maxSteerAngle, maxSteerAngle);
-
-        // Двигаем автобус вперед/назад
-        rearLeftWheel.motorTorque = move * 300f;
-        rearRightWheel.motorTorque = move * 300f;
-        Debug.Log("Скорость автобуса: " + GetSpeed() + " м/с");
-
-
-        // Поворот колес
-        frontLeftWheel.steerAngle = turn;
-        frontRightWheel.steerAngle = turn;
-        // Обновляем модели колес
-        UpdateWheelPosition(frontLeftWheel, frontLeftWheelModel);
-        UpdateWheelPosition(frontRightWheel, frontRightWheelModel);
-        UpdateWheelPosition(rearLeftWheel, rearLeftWheelModel);
-        UpdateWheelPosition(rearRightWheel, rearRightWheelModel);
-        UpdateCurrentStop();
-        // Торможение на пробел
-        if (Input.GetKey(KeyCode.Space))
-        {
-            SetBraking(true);
-        }
-        else
-        {
-            SetBraking(false);
-        }
-        FuilOut();
-
-    }
 }

@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Bus
   - Passajir
-  - BusStop
   layers:
   - Default
   - TransparentFX

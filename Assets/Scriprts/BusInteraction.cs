@@ -17,7 +17,7 @@ public class BusInteraction : MonoBehaviour
     private void Start()
     {
         // ”бедимс€, что при запуске управлени€ автобусом и его камера отключены
-        bus.GetComponent<BusController>();//enabled = false;
+        bus.GetComponent<BusController>().enabled = false;
         busCamera.SetActive(false);
 
         // ¬ключаем персонажа и его камеру
