@@ -5272,6 +5272,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   turnSpeed: 300
+  maxFuel: 100
+  currentFuel: 0
+  fuelConsumptionRate: 0.1
   frontLeftWheel: {fileID: 4498419708822640844}
   frontRightWheel: {fileID: 428434060790168688}
   rearLeftWheel: {fileID: 5746059066578676644}
@@ -5281,7 +5284,9 @@ MonoBehaviour:
   rearLeftWheelModel: {fileID: 5883109732922859745}
   rearRightWheelModel: {fileID: 1386653162230332328}
   exitpoint: {fileID: 0}
+  ON: 0
   ruder: {fileID: 4643291571988816147}
+  brakeDrag: 2
   maxSteerAngle: 30
   turnSpeedudder: 100
   isDriver: 0
@@ -5341,6 +5346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ticketPrice: 30
   moneySpawner: {fileID: 8496567208543461772}
+  MmoneySpawner: {fileID: 0}
   MoneyGive: 0
 --- !u!1 &5109166200224251963
 GameObject:
@@ -6397,7 +6403,7 @@ Transform:
   m_GameObject: {fileID: 6494798050590021702}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.99972856, z: -0.023298033, w: 0}
-  m_LocalPosition: {x: 1.74, y: 3.41, z: -1.01}
+  m_LocalPosition: {x: 1.74, y: 3.41, z: -1.068}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6436,7 +6442,7 @@ Camera:
     height: 1
   near clip plane: 0.15
   far clip plane: 1000
-  field of view: 70
+  field of view: 80
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -8453,7 +8459,7 @@ Transform:
   m_GameObject: {fileID: 8813545371040374187}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 1.74, y: 1.19, z: -1.04}
+  m_LocalPosition: {x: 1.74, y: 1.19, z: -1.34}
   m_LocalScale: {x: 100, y: 94.662834, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
