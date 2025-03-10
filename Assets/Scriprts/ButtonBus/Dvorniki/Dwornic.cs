@@ -8,9 +8,15 @@ public class Dworn : MonoBehaviour
     public float minAngle = -30f; // Минимальный угол наклона
     public float maxAngle = 30f; // Максимальный угол наклона
     [SerializeField]private float currentAngle;
+    private float StartPoz;
     private bool movingForward = true;
     private bool ON = false;
 
+    private void Start()
+    {
+        ButtonDworniki.OnButtonPressed += ONN;
+        StartPoz = currentAngle;
+    }
     void Update()
     {
         if (ON)
@@ -54,11 +60,9 @@ public class Dworn : MonoBehaviour
     }
     private void GoStartPoz()
     {
-        if (currentAngle <= minAngle)
+        if (currentAngle != StartPoz)
         {
-            currentAngle = minAngle;          
-            currentAngle -= speed * Time.deltaTime;
-            transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, currentAngle, transform.localRotation.eulerAngles.z);
+            RotateWipers();           
         }
         else
         {

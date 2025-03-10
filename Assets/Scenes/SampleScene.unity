@@ -20058,6 +20058,44 @@ MonoBehaviour:
   m_Center: {x: 0, y: 1, z: 0}
   m_Area: 1
   m_AffectedAgents: ffffffff
+--- !u!1 &610511040 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2591683328792712983, guid: a33065b5520a99647870e398c3913914, type: 3}
+  m_PrefabInstance: {fileID: 2996137738619914873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &610511042
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610511040}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.0006927479, y: 0.0012790689, z: 0.00054258335}
+  m_Center: {x: 0.00002082806, y: 0.000008359346, z: 0.00016878603}
+--- !u!114 &610511047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 610511040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19e1d8eae2c67fe479bc65f9eb0edfc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &610651611 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 05aec82adc02f16409639716322b1673, type: 3}
@@ -88208,6 +88246,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.00265
       objectReference: {fileID: 0}
+    - target: {fileID: 2591683328792712983, guid: a33065b5520a99647870e398c3913914, type: 3}
+      propertyPath: m_Name
+      value: ButtonDvorniki
+      objectReference: {fileID: 0}
     - target: {fileID: 3067218663987114112, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.536867
@@ -88791,6 +88833,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6494798050590021702, guid: a33065b5520a99647870e398c3913914, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8337925481857045056}
+    - targetCorrespondingSourceObject: {fileID: 2591683328792712983, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 610511042}
+    - targetCorrespondingSourceObject: {fileID: 2591683328792712983, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 610511047}
     - targetCorrespondingSourceObject: {fileID: 2243236710763770769, guid: a33065b5520a99647870e398c3913914, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2007873310}
@@ -88935,6 +88983,7 @@ MonoBehaviour:
   Power:
   - {fileID: 2031122040}
   - {fileID: 1146869054}
+  - {fileID: 0}
   Engine:
   - {fileID: 1402827373}
   - {fileID: 488096016}
