@@ -7482,7 +7482,7 @@ PrefabInstance:
     - target: {fileID: 4280181587413885601, guid: 8bfbab8fe93772b4084336204d4d2a1c, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: ee4d9c8db5901004e97a0c88d1a2fa2c, type: 2}
+      objectReference: {fileID: 9100000, guid: fd498cf849cacc44bb8c58552f567a77, type: 2}
     - target: {fileID: 4280181587413885601, guid: 8bfbab8fe93772b4084336204d4d2a1c, type: 3}
       propertyPath: m_CullingMode
       value: 0
