@@ -11,16 +11,16 @@ public class ThirdPersonController : MonoBehaviour
     public Transform cameraRig;         // Объект, к которому привязана камера
     public float cameraDistance = 4f;   // Расстояние камеры от персонажа
     public float cameraHeight = 2f;     // Высота камеры относительно персонажа
-
+    public bool _lockState = false;
     private CharacterController controller;
     private Animator animator;          // Компонент анимации
+    [SerializeField] private Camera playerCamera; // Камера игрока
+    [SerializeField] private float interactionDistance = 5f; // Дистанция взаимодействия
 
     private float yaw = 0f;             // Угол поворота камеры по оси Y
 
     void Start()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+    {     
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>(); // Инициализация Animator
         Cursor.lockState = CursorLockMode.Locked; // Блокируем и скрываем курсор
@@ -29,9 +29,13 @@ public class ThirdPersonController : MonoBehaviour
 
     void Update()
     {
-        RotateCharacter();
-        MoveCharacter();
-        UpdateCameraPosition();
+        if (!_lockState)
+        {
+            RotateCharacter();
+            MoveCharacter();
+            UpdateCameraPosition();
+            RayCaster();
+        }
     }
 
     private void RotateCharacter()
@@ -79,5 +83,44 @@ public class ThirdPersonController : MonoBehaviour
 
         // Камера должна смотреть на персонажа
         cameraRig.LookAt(transform.position + Vector3.up * cameraHeight);
+    }
+
+    public void LockStatePlayer()
+    {
+        _lockState = !_lockState;
+    }
+    private void RayCaster()
+    {
+        Vector3 rayOrigin = playerCamera.transform.position;
+        Vector3 rayDirection = playerCamera.transform.forward; // Направление вперед от камеры
+
+        Ray ray = new Ray(rayOrigin, rayDirection);
+        int layerMask = ~LayerMask.GetMask("Bus"); // Игнорируем слой "Bus"
+
+        RaycastHit hit;
+
+        // Список тегов, которые нужно игнорировать
+        string[] ignoredTags = { "BusStop" };
+
+        // Выполняем рэйкаст с ограничением дистанции
+        if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
+        {
+            // Проверяем, попал ли луч в объект с игнорируемым тегом
+            foreach (string tag in ignoredTags)
+            {
+                if (hit.collider.CompareTag(tag))
+                {
+                    return; // Выходим из метода, если объект имеет игнорируемый тег
+                }
+            }
+
+            Debug.Log($"Рэй попал в объект: {hit.collider.name}");
+
+            IInteractable interactable = hit.collider.GetComponent<IInteractable>();
+            if (Input.GetKeyDown(KeyCode.E) && interactable != null)
+            {
+                interactable.Interact();
+            }           
+        }
     }
 }
