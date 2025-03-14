@@ -43778,7 +43778,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueManager: {fileID: 1843682244}
-  myDialogue: {fileID: 11400000, guid: 79aecb78790d35c41a8aa12b6ef6f20e, type: 2}
+  myDialogue: {fileID: 11400000, guid: b8c19037f11c696449850498c7d4cf9b, type: 2}
   interactionPR: {fileID: 1921080709}
 --- !u!23 &1186343346
 MeshRenderer:

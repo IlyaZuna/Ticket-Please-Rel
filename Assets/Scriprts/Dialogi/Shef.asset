@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Shef
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  lines: []
+  lines:
+  - characterName: "\u0428\u0435\u0444"
+    text: "\u0430\u0430"
+  - characterName: "\u0413\u0435\u0440\u043E\u0439"
+    text: "\u0411"
