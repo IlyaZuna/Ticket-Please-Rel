@@ -4840,7 +4840,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 543450652072611011}
   - {fileID: 952891523}
   - {fileID: 133046463}
   - {fileID: 1764922094}
@@ -11229,8 +11228,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 5.7418003, z: 7}
-  m_Center: {x: 0, y: 0, z: 2}
+  m_Size: {x: 15.552399, y: 4.0429363, z: 8.439148}
+  m_Center: {x: -0.24677277, y: -0.849432, z: 2.719574}
 --- !u!114 &314268739
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11243,7 +11242,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: 0, y: 0, z: 0.9}
   indexStop: 6
@@ -13737,7 +13737,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: -1.41, y: 0, z: 0}
   indexStop: 4
@@ -13765,8 +13766,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.28, y: 5.74, z: 10}
-  m_Center: {x: -2.23, y: 0, z: 0}
+  m_Size: {x: 9.143948, y: 3.8939338, z: 14.8330555}
+  m_Center: {x: -3.661974, y: -0.923033, z: -0.39280415}
 --- !u!4 &408491276 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0ee6d569ec3227e40888e8151b331e0f, type: 3}
@@ -22450,6 +22451,7 @@ Transform:
   - {fileID: 407035207}
   - {fileID: 784272815}
   - {fileID: 314268737}
+  - {fileID: 543450652072611011}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &656709100
@@ -22809,6 +22811,54 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: a4051385261ccbb45a4060203fd8d66e, type: 3}
+--- !u!1 &665835117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665835118}
+  - component: {fileID: 665835119}
+  m_Layer: 0
+  m_Name: NavMesh Modifier Volume (18)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &665835118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665835117}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: -1, z: 41.9}
+  m_LocalScale: {x: 93.5, y: 29.8, z: 118.7}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 939188722}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &665835119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665835117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 4, y: 3, z: 4}
+  m_Center: {x: 0, y: 1, z: 0}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!4 &666381171 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 8b680e0f7699a254c84ed6737b7eb53d, type: 3}
@@ -27385,8 +27435,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7, y: 5.7418003, z: 10}
-  m_Center: {x: -1.96, y: 0, z: 0}
+  m_Size: {x: 8.905105, y: 3.7071102, z: 13.111931}
+  m_Center: {x: -2.9125524, y: -1.0173451, z: 0.64787674}
 --- !u!114 &784272817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27399,7 +27449,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: -0.91, y: 0, z: 0}
   indexStop: 5
@@ -34076,6 +34127,7 @@ Transform:
   - {fileID: 1350736465}
   - {fileID: 1819802698}
   - {fileID: 586869638}
+  - {fileID: 665835118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &939290774 stripped
@@ -46797,7 +46849,7 @@ Transform:
   m_GameObject: {fileID: 1258590122}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.241692, y: -20.849897, z: 65.73018}
+  m_LocalPosition: {x: -18.241692, y: 25, z: 65.73018}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -49727,8 +49779,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 5.384634, z: 10}
-  m_Center: {x: 2.5, y: 1.3062259, z: 0}
+  m_Size: {x: 8.78364, y: 2.531482, z: 15.285576}
+  m_Center: {x: 3.89182, y: -0.12035024, z: 0.14155197}
 --- !u!114 &1310713103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49741,7 +49793,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: 1.14, y: 0, z: 0}
   indexStop: 2
@@ -68794,8 +68847,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10, y: 5.7418003, z: 6}
-  m_Center: {x: 0, y: 0, z: 2.5}
+  m_Size: {x: 12.94561, y: 2.3432066, z: 8.227756}
+  m_Center: {x: -0.29189682, y: -0.25396442, z: 3.6138778}
 --- !u!114 &1728362988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68808,7 +68861,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: 0, y: 0, z: 1.01}
   indexStop: 3
@@ -76350,8 +76404,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.18161868, y: 0.20000003, z: 0.11269414}
-  m_Center: {x: 0.020971984, y: -0.00028296313, z: 0.0014484134}
+  m_Size: {x: 0.18161882, y: 0.20000003, z: 0.017072784}
+  m_Center: {x: 0.020971984, y: -0.0002829631, z: -0.04636231}
 --- !u!114 &1883563396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76364,7 +76418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: 0, y: -3.48, z: 0}
   indexStop: 0
@@ -90256,11 +90311,11 @@ Transform:
   m_GameObject: {fileID: 919132147595236985}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -56.27, y: -96.22, z: 58.621582}
+  m_LocalPosition: {x: 172.03, y: -17.655285, z: 106.72159}
   m_LocalScale: {x: 60, y: 60, z: 70}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 149301643}
+  m_Father: {fileID: 655149963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &919132147595236985
 GameObject:
@@ -91079,8 +91134,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.597519, y: 10.001198, z: 7.2814636}
-  m_Center: {x: -0.4301567, y: -1.0020574, z: -2.3833873}
+  m_Size: {x: 15.538406, y: 3.6414728, z: 8.883275}
+  m_Center: {x: -0.3476181, y: -0.9369669, z: -3.1842933}
 --- !u!4 &6136431895376880444 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8988225179490838853, guid: a33065b5520a99647870e398c3913914, type: 3}
@@ -91098,7 +91153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eefee2d32556f9f41a720748eb8c8425, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabToSpawn: {fileID: 1159815892}
+  prefabToSpawn:
+  - {fileID: 1159815892}
   isAtBusStop: 0
   spawnOffset: {x: 0, y: 0, z: -1.85}
   indexStop: 1
