@@ -7,7 +7,7 @@ public class FindWay : MonoBehaviour
     private Point[] points; // Массив точек
     private Point2[] points2; // Массив точек
     private Point3[] points3; // Массив точек   
-    
+    [SerializeField]private ManagerStats stats;
     private int summ = 0;
     [SerializeField] private Transform[] WalkPoint;
     void Awake()
@@ -23,7 +23,7 @@ public class FindWay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("summ"+summ);
+        //Debug.Log("summ"+summ);
     }
     public void ICanTMove() 
     {
@@ -32,7 +32,9 @@ public class FindWay : MonoBehaviour
     }
     public void ICanMove()
     {
+
         summ--;
+        stats.addPasengerScore();
        
     }
     public void ICanMoveAll()
@@ -71,10 +73,10 @@ public class FindWay : MonoBehaviour
             {
                 nextindex = index;
             }
-            Debug.Log("Index  " + index);
+            //Debug.Log("Index  " + index);
             if (index <= points.Length - 1 && !points[nextindex].IsOccupied)
             {
-                Debug.Log("Index 1 " + index);
+                //Debug.Log("Index 1 " + index);
                 points[index].Release();
                 inde = ++index;
                 points[inde].Occupy();
@@ -84,7 +86,7 @@ public class FindWay : MonoBehaviour
             }
             else if (index == points.Length - 1)
             {
-                Debug.Log("Index 2 " + index);
+                //Debug.Log("Index 2 " + index);
                 points[index].Release();
                 RowExitOut = -1;
                 inde = index;
@@ -93,7 +95,7 @@ public class FindWay : MonoBehaviour
             }
             else
             {
-                Debug.Log("Index 3" + index);
+                //Debug.Log("Index 3" + index);
                 RowExitOut = -2;
                 inde = index;
                 target = null; // target = points[inde].transform;

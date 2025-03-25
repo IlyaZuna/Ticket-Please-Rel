@@ -72,7 +72,7 @@ public class BusController : MonoBehaviour
             {
                 s = true;
                 currentStopIndex = stop.indexStop; // Сохраняем индекс этой остановки
-                Debug.Log("Автобус сейчас на остановке с индексом: " + currentStopIndex);
+                //Debug.Log("Автобус сейчас на остановке с индексом: " + currentStopIndex);
                 break; // Останавливаем цикл, так как мы нашли текущую остановку
             }
             else
@@ -123,7 +123,7 @@ public class BusController : MonoBehaviour
         // Двигаем автобус вперед/назад
         rearLeftWheel.motorTorque = move * 300f;
         rearRightWheel.motorTorque = move * 300f;
-        Debug.Log("Скорость автобуса: " + GetSpeed() + " м/с");
+        //Debug.Log("Скорость автобуса: " + GetSpeed() + " м/с");
 
 
         // Поворот колес
