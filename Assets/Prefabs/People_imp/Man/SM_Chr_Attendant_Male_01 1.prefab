@@ -1349,6 +1349,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6495847901838280936}
   - component: {fileID: 5572296497495829293}
+  - component: {fileID: -5366722011689817699}
+  - component: {fileID: 2857712441287268174}
   m_Layer: 0
   m_Name: SM_Chr_Attendant_Male_01 1
   m_TagString: Untagged
@@ -1394,6 +1396,53 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-5366722011689817699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6602492563661725134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b37ce08e0cb23cd4da6f84051906739a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 5572296497495829293}
+--- !u!114 &2857712441287268174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6602492563661725134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69ffd7f591a26b4f8a66732dfea1046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  rotationSpeed: 5
+  stayIndex: 4
+  isWaiting: 0
+  MoneyGive: 0
+  seat: 0
+  goseat: 0
+  animator: {fileID: -5366722011689817699}
+  billPrefabs:
+  - {fileID: 919132149155446097, guid: bdb461d333c7b9f4f8ff5e2de2307d80, type: 3}
+  - {fileID: 919132149155446097, guid: 128a1b68f1a069143b7093d00cb55da5, type: 3}
+  - {fileID: 919132149155446097, guid: 2e6759cbe7f3fe74b9926a9358636b66, type: 3}
+  spawnPointMoneyPasajira: {fileID: 0}
+  driverChange: 50
+  childObject: {fileID: 6495847901838280936}
+  parentObject: {fileID: 0}
+  _Inbus: 1
+  _Outbus: 0
+  _isAtBusStop: 0
+  _areDoorsOpen: 0
+  _indexSpawn: 0
+  _indexOUT: 0
 --- !u!1 &6611017238684426103
 GameObject:
   m_ObjectHideFlags: 0

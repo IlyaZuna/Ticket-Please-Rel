@@ -33,7 +33,7 @@ public class WayTest : MonoBehaviour
 
 
     [SerializeField] private Transform childObject;
-    [SerializeField] private Transform parentObject;// Оплатил ли пассажир
+    [SerializeField] private Transform parentObject;
 
 
     [SerializeField] private bool _Inbus = true;

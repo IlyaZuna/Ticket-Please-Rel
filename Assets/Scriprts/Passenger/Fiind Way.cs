@@ -7,7 +7,7 @@ public class FindWay : MonoBehaviour
     private Point[] points; // Массив точек
     private Point2[] points2; // Массив точек
     private Point3[] points3; // Массив точек   
-    [SerializeField]private ManagerStats stats;
+
     private int summ = 0;
     [SerializeField] private Transform[] WalkPoint;
     void Awake()
@@ -23,27 +23,25 @@ public class FindWay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("summ"+summ);
+        Debug.Log("summ" + summ);
     }
-    public void ICanTMove() 
+    public void ICanTMove()
     {
         summ++;
-        
+
     }
     public void ICanMove()
     {
-
         summ--;
-        stats.addPasengerScore();
-       
+
     }
     public void ICanMoveAll()
     {
         summ = 0;
     }
-    public void WayExit(int RowExit,int index, out Transform target, out int RowExitOut)
+    public void WayExit(int RowExit, int index, out Transform target, out int RowExitOut)
     {
-        if(RowExit >= 0)
+        if (RowExit >= 0)
         {
             ICanTMove();
             points3[index].Release();
@@ -51,17 +49,17 @@ public class FindWay : MonoBehaviour
             target = points2[RowExit].transform;
             RowExitOut = -1;
         }
-        else if(RowExit == -1)
+        else if (RowExit == -1)
         {
             target = points[3].transform;
             RowExitOut = -3;
         }
-        else 
+        else
         {
             target = points[0].transform;
             RowExitOut = -2;
         }
-       
+
 
     }
     public void Way(int index, out Transform target, out int inde, out int RowExitOut)
@@ -73,10 +71,10 @@ public class FindWay : MonoBehaviour
             {
                 nextindex = index;
             }
-            //Debug.Log("Index  " + index);
+            Debug.Log("Index  " + index);
             if (index <= points.Length - 1 && !points[nextindex].IsOccupied)
             {
-                //Debug.Log("Index 1 " + index);
+                Debug.Log("Index 1 " + index);
                 points[index].Release();
                 inde = ++index;
                 points[inde].Occupy();
@@ -86,7 +84,7 @@ public class FindWay : MonoBehaviour
             }
             else if (index == points.Length - 1)
             {
-                //Debug.Log("Index 2 " + index);
+                Debug.Log("Index 2 " + index);
                 points[index].Release();
                 RowExitOut = -1;
                 inde = index;
@@ -95,7 +93,7 @@ public class FindWay : MonoBehaviour
             }
             else
             {
-                //Debug.Log("Index 3" + index);
+                Debug.Log("Index 3" + index);
                 RowExitOut = -2;
                 inde = index;
                 target = null; // target = points[inde].transform;
@@ -112,10 +110,8 @@ public class FindWay : MonoBehaviour
     public void SetSeatRowTarget(int RowExit, int index, out Transform targetPoint, out int inde, out int RowExitOut)
     {
         targetPoint = null;
-        
-
         index = Random.Range(0, 17);  // Присваиваем случайное значение, учитывая размер массива
-        
+
         for (int i = 0; i < 36; i++)
         {
             if (!points3[index].IsOccupied)
@@ -140,7 +136,7 @@ public class FindWay : MonoBehaviour
                     default:
                         Debug.Log("Некорректный currentIndex в SetSeatRowMumberTarget!" + index);
                         break;
-                }                
+                }
                 points3[index].Occupy();
                 targetPoint = points2[RowExit].transform;  // Устанавливаем цель               
                 inde = index;
@@ -161,7 +157,7 @@ public class FindWay : MonoBehaviour
         RowExitOut = RowExit;
     }
 
-    public Transform Gotarget( int index)
+    public Transform Gotarget(int index)
     {
         Transform target = WalkPoint[index];
         return target;
