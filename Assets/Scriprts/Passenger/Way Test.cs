@@ -91,7 +91,7 @@ public class WayTest : MonoBehaviour
             Outbus();
         }
 
-        //Debug.Log("_indexBusStop" + _indexBusStop);
+        Debug.Log("_indexBusStop" + _indexBusStop);
 
     }
     private void AnimationSost()
@@ -155,7 +155,7 @@ public class WayTest : MonoBehaviour
     }
     public void FindWay()
     {
-        //Debug.Log("RowExit" + RowExit);
+        Debug.Log("RowExit" + RowExit);
         if (RowExit == -2)
         {
             findWay.Way(index, out Transform targetPoint, out int inde, out int RowExitOut);
@@ -188,7 +188,7 @@ public class WayTest : MonoBehaviour
 
         if (target == null)
         {
-            
+            Debug.Log("HUI");
             if (!seat)
             {
                 FindWay();
@@ -263,7 +263,7 @@ public class WayTest : MonoBehaviour
         {
             Destroy(spawnedBill);
         }
-        //Debug.Log("isWaiting " + isWaiting);
+        Debug.Log("isWaiting " + isWaiting);
     }
     private int GetRandomBill()
     {

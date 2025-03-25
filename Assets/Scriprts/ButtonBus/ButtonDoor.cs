@@ -9,7 +9,6 @@ public class ButtonDoor : MonoBehaviour, IInteractable
     public static event Action OnButtonPressed;
     public void Interact()
     {
-        Debug.Log("Откраыть двери");
         OnButtonPressed?.Invoke();
     }
 }
