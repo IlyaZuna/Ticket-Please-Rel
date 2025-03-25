@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     public float mouseSensitivity = 100f;  // Чувствительность мыши
     public Transform playerBody;           // Ссылка на автобус (корпус)
 
@@ -12,17 +11,32 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Camera playerCamera; // Камера игрока
     [SerializeField] private float interactionDistance = 5f; // Дистанция взаимодействия
 
-    void Start()
-    {
+    // Переменные для подсветки
+    private Material highlightMaterial;    // Материал для подсветки
+    private Renderer lastHighlightedRenderer; // Последний подсвеченный рендерер
+    private Material originalMaterial;     // Оригинальный материал объекта
+    [SerializeField] private Color outlineColor = Color.yellow; // Цвет подсветки
+    [SerializeField] private float outlineWidth = 0.03f; // Ширина контура
+
+    // Список тегов, которые Raycast должен игнорировать
+    [SerializeField] private string[] raycastIgnoredTags = { "RaycastIgnore" };
+    // Список тегов, которые нужно игнорировать для взаимодействия
+    [SerializeField] private string[] ignoredTags = { "BusStop" };
+
+    void Start() {
         // Блокируем курсор в центре экрана
         Cursor.lockState = CursorLockMode.Locked;
 
         // Устанавливаем начальный поворот камеры
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+
+        // Инициализация материала для подсветки
+        highlightMaterial = new Material(Shader.Find("Custom/HighlightShader"));
+        highlightMaterial.SetColor("_OutlineColor", outlineColor);
+        highlightMaterial.SetFloat("_OutlineWidth", outlineWidth);
     }
 
-    void LateUpdate()
-    {
+    void LateUpdate() {
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -39,8 +53,8 @@ public class CameraController : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
         RayCaster();
     }
-    private void RayCaster()
-    {
+
+    private void RayCaster() {
         Vector3 rayOrigin = playerCamera.transform.position;
         Vector3 rayDirection = playerCamera.transform.forward; // Направление вперед от камеры
 
@@ -49,18 +63,43 @@ public class CameraController : MonoBehaviour
 
         RaycastHit hit;
 
-        // Список тегов, которые нужно игнорировать
-        string[] ignoredTags = { "BusStop" };
+        // Визуализация луча для отладки
+        Debug.DrawRay(rayOrigin, rayDirection * interactionDistance, Color.red, 1f);
 
         // Выполняем рэйкаст с ограничением дистанции
         if (Physics.Raycast(ray, out hit, interactionDistance, layerMask))
         {
-            // Проверяем, попал ли луч в объект с игнорируемым тегом
+            // Проверяем, попал ли луч в объект с тегом, который игнорируется Raycast'ом
+            foreach (string tag in raycastIgnoredTags)
+            {
+                if (hit.collider.CompareTag(tag))
+                {
+                    ResetHighlight(); // Сбрасываем подсветку
+                    return; // Выходим из метода
+                }
+            }
+
+            // Проверяем, попал ли луч в объект с игнорируемым тегом для взаимодействия
             foreach (string tag in ignoredTags)
             {
                 if (hit.collider.CompareTag(tag))
                 {
-                    return; // Выходим из метода, если объект имеет игнорируемый тег
+                    ResetHighlight();
+                    return;
+                }
+            }
+
+            Renderer currentRenderer = hit.collider.GetComponent<Renderer>();
+
+            // Логика подсветки
+            if (currentRenderer != null)
+            {
+                if (currentRenderer != lastHighlightedRenderer)
+                {
+                    ResetHighlight(); // Сбрасываем предыдущую подсветку
+                    originalMaterial = currentRenderer.material; // Сохраняем оригинальный материал
+                    currentRenderer.material = highlightMaterial; // Применяем подсветку
+                    lastHighlightedRenderer = currentRenderer;
                 }
             }
 
@@ -79,6 +118,27 @@ public class CameraController : MonoBehaviour
                 Debug.Log("Попали в BillEtMoney объект!");
                 bill.OnMouseDown();
             }
+        }
+        else
+        {
+            // Если луч ни во что не попал, сбрасываем подсветку
+            ResetHighlight();
+        }
+    }
+
+    private void ResetHighlight() {
+        if (lastHighlightedRenderer != null)
+        {
+            lastHighlightedRenderer.material = originalMaterial;
+            lastHighlightedRenderer = null;
+        }
+    }
+
+    void OnDestroy() {
+        // Очищаем созданный материал при уничтожении объекта
+        if (highlightMaterial != null)
+        {
+            Destroy(highlightMaterial);
         }
     }
 }
