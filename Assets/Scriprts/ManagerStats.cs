@@ -26,7 +26,7 @@ public class ManagerStats : MonoBehaviour
     public bool CheckQwest(int Qwest)
     {
         
-        if (Qwest >= _PasengerScore)
+        if (Qwest <= _PasengerScore)
         {
             return true;
         }
