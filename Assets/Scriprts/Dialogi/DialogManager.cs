@@ -11,7 +11,7 @@ public class DialogManager : MonoBehaviour
     public GameObject dialoguePanel;
     public Button nextButton;
     public ThirdPersonController player;
-
+    public ManagerStats stats;
     private DialogueData currentDialogue;
     private int currentLineIndex;
 
@@ -30,6 +30,7 @@ public class DialogManager : MonoBehaviour
         currentLineIndex = 0;
         dialoguePanel.SetActive(true);
         DisplayNextLine();
+        Debug.Log(stats.CheckQwest(currentDialogue.QwestInt));
     }
 
     public void DisplayNextLine()
@@ -40,9 +41,23 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
-        nameText.text = currentDialogue.lines[currentLineIndex].characterName;
+        nameText.text = currentDialogue.characterName;
         dialogueText.text = currentDialogue.lines[currentLineIndex].text;
-        currentLineIndex++;
+
+
+        if (currentDialogue.lines[currentLineIndex].checkQwest && stats.CheckQwest(currentDialogue.QwestInt))
+        {
+            currentLineIndex = currentDialogue.lines[currentLineIndex].nextQwestindexDialog;
+        }
+        else if (currentDialogue.lines[currentLineIndex].nextindexDialog != 0)
+        {
+            currentLineIndex = currentDialogue.lines[currentLineIndex].nextindexDialog;
+        }
+        else
+        {
+            currentLineIndex++;
+        }
+
     }
 
     void EndDialogue()

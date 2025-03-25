@@ -10,6 +10,7 @@ public class FindWay : MonoBehaviour
     
     private int summ = 0;
     [SerializeField] private Transform[] WalkPoint;
+    [SerializeField]private ManagerStats stats;
     void Awake()
     {
         points = FindObjectsOfType<Point>();
@@ -33,7 +34,9 @@ public class FindWay : MonoBehaviour
     public void ICanMove()
     {
         summ--;
-       
+        stats.addPasengerSkore();
+
+
     }
     public void ICanMoveAll()
     {
