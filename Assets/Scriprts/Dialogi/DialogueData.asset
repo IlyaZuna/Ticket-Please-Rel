@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: DialogueData
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  QwestInt: 20
+  QwestInt: 10
   characterName: "\u0428\u0435\u0444"
   lines:
   - checkQwest: 0
