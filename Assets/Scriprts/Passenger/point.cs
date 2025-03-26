@@ -7,7 +7,7 @@ public class Point : MonoBehaviour
 
     public void Start()
     {
-        bool IsOccupied = false;
+        IsOccupied = false;
     }
 
     public void Occupy()

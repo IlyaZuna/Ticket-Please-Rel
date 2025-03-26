@@ -12,7 +12,7 @@ public class DoorAnimationController : MonoBehaviour {
     public string door3AnimationName = "Open_3";
     public string door4AnimationName = "Open_4";
 
-    bool areDoorsOpen = false;
+    public bool areDoorsOpen = false;
 
     [Range(0.1f, 1.0f)]
     public float animationSpeed = 0.5f; // скорость анимации
