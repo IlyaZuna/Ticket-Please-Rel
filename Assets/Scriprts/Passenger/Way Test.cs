@@ -162,6 +162,7 @@ public class WayTest : MonoBehaviour
             index = inde;
             if (index == 2)
             {
+                GetComponent<CapsuleCollider>().enabled = false;
                 agent.enabled = false;
             }
             target = targetPoint;
@@ -238,6 +239,7 @@ public class WayTest : MonoBehaviour
                 findWay.ICanMove();
                 _Outbus = false;
                 agent.enabled = true;
+                GetComponent<CapsuleCollider>().enabled = true;
                 return;
             }
             target = null;

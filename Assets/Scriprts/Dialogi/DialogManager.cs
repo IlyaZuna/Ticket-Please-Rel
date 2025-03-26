@@ -10,9 +10,10 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public GameObject dialoguePanel;
     public Button nextButton;
-    public ThirdPersonController player;
+    public FirstPersonController player;
     public ManagerStats stats;
     private DialogueData currentDialogue;
+    private DataLoader dataLoader;
     private int currentLineIndex;
 
     void Start()
@@ -48,6 +49,7 @@ public class DialogManager : MonoBehaviour
         if (currentDialogue.lines[currentLineIndex].checkQwest && stats.CheckQwest(currentDialogue.QwestInt))
         {
             currentLineIndex = currentDialogue.lines[currentLineIndex].nextQwestindexDialog;
+            dataLoader.CwichDialog();
         }
         else if (currentDialogue.lines[currentLineIndex].nextindexDialog != 0)
         {
