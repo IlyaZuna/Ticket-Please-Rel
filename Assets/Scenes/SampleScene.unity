@@ -2503,6 +2503,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 796948bfa75e5ee4ba5a68eabfa08ec3, type: 3}
   m_PrefabInstance: {fileID: 970526941}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &86528582 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5089960999656595223, guid: a33065b5520a99647870e398c3913914, type: 3}
+  m_PrefabInstance: {fileID: 2996137738619914873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &86528586
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 86528582}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00048514738, y: 0.00094409817, z: 0.00028042358}
+  m_Center: {x: 6.6938816e-10, y: 0.0000007735506, z: 0.000037705904}
 --- !u!1 &87969479 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: dac1a631b172e66469fb09e9987bcf57, type: 3}
@@ -4241,6 +4267,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 0ee6d569ec3227e40888e8151b331e0f, type: 3}
   m_PrefabInstance: {fileID: 1720651927}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &134485639 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3825602219638449631, guid: a33065b5520a99647870e398c3913914, type: 3}
+  m_PrefabInstance: {fileID: 2996137738619914873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &134485643
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 134485639}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00048514738, y: 0.00094409817, z: 0.00028042358}
+  m_Center: {x: 6.6938816e-10, y: 0.0000007735506, z: 0.000037705904}
 --- !u!1001 &135125945
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17434,6 +17486,46 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 31bbda51eeab02f44a8e92a7da2f5ff8, type: 3}
   m_PrefabInstance: {fileID: 303137778}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &512274094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8300723340422649325, guid: a33065b5520a99647870e398c3913914, type: 3}
+  m_PrefabInstance: {fileID: 2996137738619914873}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &512274098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512274094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08357989eb8d9840bf1d150149fb7c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightsParent: {fileID: 1657662849}
+  startDisabled: 1
+--- !u!65 &512274099
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 512274094}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.00048514738, y: 0.00094409817, z: 0.00028042358}
+  m_Center: {x: 0.00000023908797, y: 0.0000007735506, z: 0.000037705904}
 --- !u!1001 &517374700
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67301,6 +67393,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 3b11d86015e5ec34498b9a3d432bd029, type: 3}
+--- !u!1 &1657662849 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1622957548945138731, guid: a33065b5520a99647870e398c3913914, type: 3}
+  m_PrefabInstance: {fileID: 2996137738619914873}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1657944220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71724,7 +71821,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1758697952
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78758,7 +78855,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b52a779af96184a45b209f223f3badb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueManager: {fileID: 1843682244}
+  playerTag: Player
   myDialogue: {fileID: 11400000, guid: c7517fb339f7c0349a994cd864532a94, type: 2}
   nextmyDialogue: {fileID: 11400000, guid: 9ca11b31259c8a249976020625e32fb9, type: 2}
   interactionPR: {fileID: 1921080709}
@@ -93287,6 +93384,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8300723340422649325, guid: a33065b5520a99647870e398c3913914, type: 3}
+      propertyPath: m_Name
+      value: ButtonSvetSalon
+      objectReference: {fileID: 0}
     - target: {fileID: 8775599977532712450, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -93422,6 +93523,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6494798050590021702, guid: a33065b5520a99647870e398c3913914, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8337925481857045056}
+    - targetCorrespondingSourceObject: {fileID: 3825602219638449631, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 134485643}
+    - targetCorrespondingSourceObject: {fileID: 5089960999656595223, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 86528586}
+    - targetCorrespondingSourceObject: {fileID: 8300723340422649325, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 512274099}
+    - targetCorrespondingSourceObject: {fileID: 8300723340422649325, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 512274098}
     - targetCorrespondingSourceObject: {fileID: 2591683328792712983, guid: a33065b5520a99647870e398c3913914, type: 3}
       insertIndex: -1
       addedObject: {fileID: 610511042}

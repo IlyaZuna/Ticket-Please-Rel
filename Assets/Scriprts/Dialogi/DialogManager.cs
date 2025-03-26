@@ -3,38 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class DialogManager : MonoBehaviour
 {
-    public TextMeshProUGUI dialogueText;
-    public TextMeshProUGUI nameText;
-    public GameObject dialoguePanel;
-    public Button nextButton;
-    public FirstPersonController player;
-    public ManagerStats stats;
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI dialogueText;
+    [SerializeField] private TextMeshProUGUI nameText;
+    [SerializeField] private GameObject dialoguePanel;
+    [SerializeField] private Button nextButton;
+
+    [Header("Dependencies")]
+    [SerializeField] private FirstPersonController player;
+    [SerializeField] private ManagerStats stats;
+
     private DialogueData currentDialogue;
-    private DataLoader dataLoader;
+    private DataLoader currentLoader;
     private int currentLineIndex;
 
-    void Start()
+    public void SetCurrentDataLoader(DataLoader loader) => currentLoader = loader;
+
+    private void Start()
     {
-        dialoguePanel.SetActive(false); // Диалог скрыт при старте
+        dialoguePanel.SetActive(false);
         nextButton.onClick.AddListener(DisplayNextLine);
+
+        // Автопоиск если не назначено
+        if (player == null) player = FindObjectOfType<FirstPersonController>();
+        if (stats == null) stats = FindObjectOfType<ManagerStats>();
     }
 
     public void StartDialogue(DialogueData dialogue)
     {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        player.LockStatePlayer();
         currentDialogue = dialogue;
         currentLineIndex = 0;
+
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        player?.LockStatePlayer();
         dialoguePanel.SetActive(true);
+
         DisplayNextLine();
-        Debug.Log(stats.CheckQwest(currentDialogue.QwestInt));
     }
 
-    public void DisplayNextLine()
+    private void DisplayNextLine()
     {
         if (currentDialogue == null || currentLineIndex >= currentDialogue.lines.Length)
         {
@@ -42,30 +52,25 @@ public class DialogManager : MonoBehaviour
             return;
         }
 
+        var line = currentDialogue.lines[currentLineIndex];
         nameText.text = currentDialogue.characterName;
-        dialogueText.text = currentDialogue.lines[currentLineIndex].text;
+        dialogueText.text = line.text;
 
-
-        if (currentDialogue.lines[currentLineIndex].checkQwest && stats.CheckQwest(currentDialogue.QwestInt))
+        if (line.checkQwest && stats.CheckQwest(currentDialogue.QwestInt))
         {
-            currentLineIndex = currentDialogue.lines[currentLineIndex].nextQwestindexDialog;
-            dataLoader.CwichDialog();
-        }
-        else if (currentDialogue.lines[currentLineIndex].nextindexDialog != 0)
-        {
-            currentLineIndex = currentDialogue.lines[currentLineIndex].nextindexDialog;
+            currentLineIndex = line.nextQwestindexDialog;
+            currentLoader?.SwitchDialog();
         }
         else
         {
-            currentLineIndex++;
+            currentLineIndex = line.nextindexDialog != 0 ? line.nextindexDialog : currentLineIndex + 1;
         }
-
     }
 
-    void EndDialogue()
+    private void EndDialogue()
     {
         dialoguePanel.SetActive(false);
-        player.LockStatePlayer();
+        player?.LockStatePlayer();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
