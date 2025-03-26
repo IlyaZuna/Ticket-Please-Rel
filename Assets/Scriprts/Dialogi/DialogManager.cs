@@ -10,7 +10,7 @@ public class DialogManager : MonoBehaviour
     public TextMeshProUGUI nameText;
     public GameObject dialoguePanel;
     public Button nextButton;
-    public ThirdPersonController player;
+    public FirstPersonController player;
     public ManagerStats stats;
     private DialogueData currentDialogue;
     private int currentLineIndex;
