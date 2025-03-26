@@ -5,7 +5,7 @@ using UnityEngine;
 public class BusDoorController : MonoBehaviour
 {
     // Ссылка на компонент Animator
-    private Animator animator;
+    [SerializeField]private Animator animator;
     // Имя триггера для открытия дверей
     private const string OpenDoorsTrigger = "OpenDoors";
     private void Start()

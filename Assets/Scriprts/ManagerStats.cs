@@ -32,4 +32,5 @@ public class ManagerStats : MonoBehaviour
         _pasengerSkore++;
         return;
     }
+    public int getPasengerSkore() {  return _pasengerSkore; }
 }
