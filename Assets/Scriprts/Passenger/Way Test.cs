@@ -45,6 +45,7 @@ public class WayTest : MonoBehaviour
     private int _indexBusStop = -1;
     [SerializeField] private int _indexSpawn = 0;
     [SerializeField] private int _indexOUT;
+    [SerializeField] private bool SpecialStop =false;
 
     void Start()
     {
@@ -57,6 +58,7 @@ public class WayTest : MonoBehaviour
     }
     void Update()
     {
+        if (SpecialStop) { return; }
         AnimationSost();
         if (!_Inbus && !_Outbus)
         {
@@ -325,6 +327,7 @@ public class WayTest : MonoBehaviour
     public void SetIndex(int index, bool lastStop)
     {
         _indexSpawn = index;
+        SpecialStop = false;
 
         if (lastStop)
         {
@@ -333,6 +336,7 @@ public class WayTest : MonoBehaviour
         else
         {
             _indexOUT = Random.Range(index + 1, 5);
+            
         }
     }
 }
