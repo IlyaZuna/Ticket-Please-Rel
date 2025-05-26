@@ -1,0 +1,22 @@
+{
+  "lines": [
+    {
+      "speakerName": "Шеф",
+      "text": "Привет",
+      "nextLineIndex": 1,
+      "isQuestTrigger": false
+    },
+    {
+      "speakerName": "Игрок",
+      "text": "Игрок",
+      "nextLineIndex": 2,
+      "isQuestTrigger": false
+    },
+    {
+      "speakerName": "Шеф",
+      "text": "Отвези 20 человек?",
+      "nextLineIndex": -1,
+      "isQuestTrigger": true
+    }
+  ]
+}

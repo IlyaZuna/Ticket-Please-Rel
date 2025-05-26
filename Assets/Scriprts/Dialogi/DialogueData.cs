@@ -1,19 +1,15 @@
 using UnityEngine;
-
 [System.Serializable]
-
 public class DialogueLine
 {
-    public bool checkQwest = false;
-    public int nextindexDialog = 0;
-    public int nextQwestindexDialog = 0;
+    public string speakerName;
     [TextArea(3, 5)] public string text;
+    public int nextLineIndex; // -1 = конец диалога
+    public bool isQuestTrigger; // ƒополнительные услови€
 }
 
-[CreateAssetMenu(fileName = "DialogueData", menuName = "Dialogue/DialogueData", order = 1)]
-public class DialogueData : ScriptableObject
+[System.Serializable]
+public class DialogueData
 {
-    public int QwestInt = 0;
-    public string characterName;
     public DialogueLine[] lines;
 }

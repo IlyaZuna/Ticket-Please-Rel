@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BusStopTrigger : MonoBehaviour
 {
-    public GameObject prefabToSpawn;  // Префаб, который будем спавнить
+    public GameObject[] prefabToSpawn;  // Префаб, который будем спавнить
     public bool isAtBusStop = false; // Переменная для отслеживания, находится ли автобус на остановке
     public Vector3 spawnOffset = Vector3.zero; // Смещение зоны спавна 
     [SerializeField] public int indexStop; // Индекс этой остановки
@@ -80,9 +80,9 @@ public class BusStopTrigger : MonoBehaviour
                 if (validPosition)
                 {
                     spawnedPositions.Add(spawnPosition);
-
+                    int index = Random.Range(0, prefabToSpawn.Length);
                     // Создаем объект
-                    GameObject spawnedObject = Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+                    GameObject spawnedObject = Instantiate(prefabToSpawn[index], spawnPosition, Quaternion.identity);
 
                     // Случайный угол поворота
                     float randomRotationY = Random.Range(0f, 360f);

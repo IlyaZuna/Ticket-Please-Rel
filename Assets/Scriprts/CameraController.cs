@@ -35,7 +35,10 @@ public class CameraController : MonoBehaviour {
         highlightMaterial.SetColor("_OutlineColor", outlineColor);
         highlightMaterial.SetFloat("_OutlineWidth", outlineWidth);
     }
-
+    private void Update()
+    {
+        RayCaster();
+    }
     void LateUpdate() {
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
@@ -51,7 +54,7 @@ public class CameraController : MonoBehaviour {
 
         // Применяем повороты к камере
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        RayCaster();
+        
     }
 
     private void RayCaster() {
