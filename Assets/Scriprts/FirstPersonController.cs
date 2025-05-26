@@ -103,7 +103,7 @@ public class FirstPersonController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
             playerVelocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
-            if (animator != null) animator.SetTrigger("Jump");
+            if (animator != null) animator.SetTrigger("isJumping");
         }
     }
 

@@ -18,7 +18,7 @@ public class BusDoorController : MonoBehaviour
         ButtonDoor.OnButtonPressed += ToggleDoor;
     }
     public void ToggleDoor()
-    {
+    {        
         animator.SetTrigger(OpenDoorsTrigger); // Активируем триггер для анимации
     }
 }

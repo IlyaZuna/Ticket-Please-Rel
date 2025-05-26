@@ -1914,7 +1914,6 @@ GameObject:
   - component: {fileID: 3010718772748257660}
   - component: {fileID: 2609532780825477379}
   - component: {fileID: 1599059397363131103}
-  - component: {fileID: 2976930744851099021}
   m_Layer: 0
   m_Name: ButtonDoor
   m_TagString: Untagged
@@ -2009,18 +2008,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0006927479, y: 0.0012790689, z: 0.00054258335}
   m_Center: {x: 0.00002082806, y: 0.000008359346, z: 0.00016878603}
---- !u!114 &2976930744851099021
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1974158100246480831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2503cfacd9d36334791a5a849a98045b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1990115173034640492
 GameObject:
   m_ObjectHideFlags: 0
@@ -5285,7 +5272,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5216170151499891370}
   - component: {fileID: 5248906641102392218}
-  - component: {fileID: 7951000289262395153}
   - component: {fileID: 8954435214298106731}
   - component: {fileID: 6016019102040491990}
   - component: {fileID: 2004413328789646543}
@@ -5365,41 +5351,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &7951000289262395153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5105064771995435876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59670aab2ef3b6942b839952681550fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 15
-  turnSpeed: 300
-  maxFuel: 100
-  currentFuel: 0
-  fuelConsumptionRate: 0.1
-  frontLeftWheel: {fileID: 4498419708822640844}
-  frontRightWheel: {fileID: 428434060790168688}
-  rearLeftWheel: {fileID: 5746059066578676644}
-  rearRightWheel: {fileID: 8078438371446182997}
-  frontLeftWheelModel: {fileID: 4482993713328584894}
-  frontRightWheelModel: {fileID: 4599061557201962797}
-  rearLeftWheelModel: {fileID: 5883109732922859745}
-  rearRightWheelModel: {fileID: 1386653162230332328}
-  exitpoint: {fileID: 0}
-  ON: 0
-  ruder: {fileID: 4643291571988816147}
-  brakeDrag: 2
-  maxSteerAngle: 30
-  turnSpeedudder: 100
-  isDriver: 0
-  areDoorsOpen: 0
-  s: 0
-  currentStopIndex: -1
 --- !u!65 &8954435214298106731
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6700,6 +6651,12 @@ MonoBehaviour:
   playerBody: {fileID: 5216170151499891370}
   playerCamera: {fileID: 8866672468699405294}
   interactionDistance: 5
+  outlineColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  outlineWidth: 0.03
+  raycastIgnoredTags:
+  - RaycastIgnore
+  ignoredTags:
+  - BusStop
 --- !u!1 &6513780101869665754
 GameObject:
   m_ObjectHideFlags: 0

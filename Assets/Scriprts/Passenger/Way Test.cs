@@ -45,6 +45,7 @@ public class WayTest : MonoBehaviour
     private int _indexBusStop = -1;
     [SerializeField] private int _indexSpawn = 0;
     [SerializeField] private int _indexOUT;
+    [SerializeField] private bool SpecialStop =false;
 
     void Start()
     {
@@ -57,6 +58,7 @@ public class WayTest : MonoBehaviour
     }
     void Update()
     {
+        if (SpecialStop) { return; }
         AnimationSost();
         if (!_Inbus && !_Outbus)
         {
@@ -91,39 +93,31 @@ public class WayTest : MonoBehaviour
             Outbus();
         }
 
-        Debug.Log("_indexBusStop" + _indexBusStop);
+        //Debug.Log("_indexBusStop" + _indexBusStop);
 
     }
     private void AnimationSost()
     {
-        if (target == null && !seat)
+        if (seat)
         {
-            animator.Idle();
-            return;
+            animator.Sit();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
         }
-        if (isWaiting)
-        {
-            animator.Idle();
-            return;
-        }
-        else if (!seat && target != null || !_Inbus && !_Outbus)
+        else if (target != null && !isWaiting && (!_Inbus || !_Outbus))
         {
             Vector3 direction = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
-
-            if (direction.sqrMagnitude > 0.01f) // проверка на нулевое расстояние
+            if (direction.sqrMagnitude > 0.01f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
             animator.Walk();
-            return;
         }
-        if (seat) //!_Outbus && !_Inbus
+        else
         {
-            animator.Sit();
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
-            return;
+            animator.Idle();
         }
+        //Debug.Log($"AnimationSost: seat={seat}, target={(target != null)}, isWaiting={isWaiting}, _Inbus={_Inbus}, _Outbus={_Outbus}");
     }
     private void LateUpdate()
     {
@@ -155,7 +149,7 @@ public class WayTest : MonoBehaviour
     }
     public void FindWay()
     {
-        Debug.Log("RowExit" + RowExit);
+        //Debug.Log("RowExit" + RowExit);
         if (RowExit == -2)
         {
             findWay.Way(index, out Transform targetPoint, out int inde, out int RowExitOut);
@@ -189,7 +183,7 @@ public class WayTest : MonoBehaviour
 
         if (target == null)
         {
-            Debug.Log("HUI");
+           
             if (!seat)
             {
                 FindWay();
@@ -333,6 +327,7 @@ public class WayTest : MonoBehaviour
     public void SetIndex(int index, bool lastStop)
     {
         _indexSpawn = index;
+        SpecialStop = false;
 
         if (lastStop)
         {
@@ -341,6 +336,7 @@ public class WayTest : MonoBehaviour
         else
         {
             _indexOUT = Random.Range(index + 1, 5);
+            
         }
     }
 }
