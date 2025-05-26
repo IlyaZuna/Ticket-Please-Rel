@@ -123,7 +123,7 @@ public class BusController : MonoBehaviour
         // Двигаем автобус вперед/назад
         rearLeftWheel.motorTorque = move * 300f;
         rearRightWheel.motorTorque = move * 300f;
-        Debug.Log("Скорость автобуса: " + GetSpeed() + " м/с");
+        //Debug.Log("Скорость автобуса: " + GetSpeed() + " м/с");
 
 
         // Поворот колес

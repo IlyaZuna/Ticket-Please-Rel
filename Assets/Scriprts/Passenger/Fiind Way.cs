@@ -74,10 +74,10 @@ public class FindWay : MonoBehaviour
             {
                 nextindex = index;
             }
-            Debug.Log("Index  " + index);
+            //Debug.Log("Index  " + index);
             if (index <= points.Length - 1 && !points[nextindex].IsOccupied)
             {
-                Debug.Log("Index 1 " + index);
+                //Debug.Log("Index 1 " + index);
                 points[index].Release();
                 inde = ++index;
                 points[inde].Occupy();
@@ -87,7 +87,7 @@ public class FindWay : MonoBehaviour
             }
             else if (index == points.Length - 1)
             {
-                Debug.Log("Index 2 " + index);
+                //Debug.Log("Index 2 " + index);
                 points[index].Release();
                 RowExitOut = -1;
                 inde = index;
@@ -96,7 +96,7 @@ public class FindWay : MonoBehaviour
             }
             else
             {
-                Debug.Log("Index 3" + index);
+                //Debug.Log("Index 3" + index);
                 RowExitOut = -2;
                 inde = index;
                 target = null; // target = points[inde].transform;
