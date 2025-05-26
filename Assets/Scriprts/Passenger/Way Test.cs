@@ -96,34 +96,26 @@ public class WayTest : MonoBehaviour
     }
     private void AnimationSost()
     {
-        if (target == null && !seat)
+        if (seat)
         {
-            animator.Idle();
-            return;
+            animator.Sit();
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
         }
-        if (isWaiting)
-        {
-            animator.Idle();
-            return;
-        }
-        else if (!seat && target != null || !_Inbus && !_Outbus)
+        else if (target != null && !isWaiting && (!_Inbus || !_Outbus))
         {
             Vector3 direction = new Vector3(target.position.x - transform.position.x, 0f, target.position.z - transform.position.z);
-
-            if (direction.sqrMagnitude > 0.01f) // проверка на нулевое расстояние
+            if (direction.sqrMagnitude > 0.01f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
             animator.Walk();
-            return;
         }
-        if (seat) //!_Outbus && !_Inbus
+        else
         {
-            animator.Sit();
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0f, -180f + parentObject.eulerAngles.y, 0f), Time.deltaTime * rotationSpeed);
-            return;
+            animator.Idle();
         }
+        Debug.Log($"AnimationSost: seat={seat}, target={(target != null)}, isWaiting={isWaiting}, _Inbus={_Inbus}, _Outbus={_Outbus}");
     }
     private void LateUpdate()
     {

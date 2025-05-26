@@ -1444,7 +1444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3395505154021167319, guid: 973f212526c531b4b97869f05bb8d40c, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3395505154021167319, guid: 973f212526c531b4b97869f05bb8d40c, type: 3}
       propertyPath: m_TagString
@@ -3801,7 +3801,7 @@ MonoBehaviour:
   MoneyGive: 0
   seat: 0
   goseat: 0
-  animator: {fileID: 1674090453}
+  animator: {fileID: 116077661}
   billPrefabs:
   - {fileID: 919132149155446097, guid: bdb461d333c7b9f4f8ff5e2de2307d80, type: 3}
   - {fileID: 919132149155446097, guid: 128a1b68f1a069143b7093d00cb55da5, type: 3}
@@ -18677,7 +18677,7 @@ MonoBehaviour:
   MoneyGive: 0
   seat: 0
   goseat: 0
-  animator: {fileID: 1674090453}
+  animator: {fileID: 537997989}
   billPrefabs:
   - {fileID: 919132149155446097, guid: bdb461d333c7b9f4f8ff5e2de2307d80, type: 3}
   - {fileID: 919132149155446097, guid: 128a1b68f1a069143b7093d00cb55da5, type: 3}
@@ -20076,7 +20076,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602492563661725134, guid: 176ec367ef18cfc4e8c4d8b339d49f5d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6602492563661725134, guid: 176ec367ef18cfc4e8c4d8b339d49f5d, type: 3}
       propertyPath: m_TagString
@@ -23934,7 +23934,7 @@ MonoBehaviour:
   MoneyGive: 0
   seat: 0
   goseat: 0
-  animator: {fileID: 1674090453}
+  animator: {fileID: 670802851}
   billPrefabs:
   - {fileID: 919132149155446097, guid: bdb461d333c7b9f4f8ff5e2de2307d80, type: 3}
   - {fileID: 919132149155446097, guid: 128a1b68f1a069143b7093d00cb55da5, type: 3}
@@ -26137,7 +26137,7 @@ MonoBehaviour:
   MoneyGive: 0
   seat: 0
   goseat: 0
-  animator: {fileID: 1674090453}
+  animator: {fileID: 722439796}
   billPrefabs:
   - {fileID: 919132149155446097, guid: bdb461d333c7b9f4f8ff5e2de2307d80, type: 3}
   - {fileID: 919132149155446097, guid: 128a1b68f1a069143b7093d00cb55da5, type: 3}
@@ -34131,7 +34131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2673990879396643351, guid: 1c8ff1e00f0384547b654bd3053447c0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2673990879396643351, guid: 1c8ff1e00f0384547b654bd3053447c0, type: 3}
       propertyPath: m_TagString
@@ -34787,7 +34787,7 @@ MonoBehaviour:
   MoneyGive: 0
   seat: 0
   goseat: 0
-  animator: {fileID: 1674090453}
+  animator: {fileID: 925593992}
   billPrefabs:
   - {fileID: 919132149155446097, guid: bdb461d333c7b9f4f8ff5e2de2307d80, type: 3}
   - {fileID: 919132149155446097, guid: 128a1b68f1a069143b7093d00cb55da5, type: 3}
@@ -45399,7 +45399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2395762677598877986, guid: abbfa482a4013fa479d67739bf522990, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2395762677598877986, guid: abbfa482a4013fa479d67739bf522990, type: 3}
       propertyPath: m_TagString
@@ -79661,7 +79661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3774869399062672769, guid: 0db13af143956964f98b410694727f61, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3774869399062672769, guid: 0db13af143956964f98b410694727f61, type: 3}
       propertyPath: m_TagString
@@ -80232,7 +80232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2004683609095309774, guid: 5eb3251bbd7aeba4f98e585d16ceaf4e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2004683609095309774, guid: 5eb3251bbd7aeba4f98e585d16ceaf4e, type: 3}
       propertyPath: m_TagString
@@ -94811,7 +94811,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8171413294456616817, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8181315837250033463, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: newScale.x
