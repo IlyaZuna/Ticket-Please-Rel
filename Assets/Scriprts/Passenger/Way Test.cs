@@ -318,7 +318,7 @@ public class WayTest : MonoBehaviour
         target = findWay.Gotarget(_indexOUT);
         agent.SetDestination(target.position);
         animator.Walk();
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if (!agent.pathPending && agent.remainingDistance < 1f)
         {
             ButtonDoor.OnButtonPressed -= ToggleDoor;
             Destroy(gameObject);
