@@ -45,7 +45,7 @@ public class WayTest : MonoBehaviour
     private int _indexBusStop = -1;
     [SerializeField] private int _indexSpawn = 0;
     [SerializeField] private int _indexOUT;
-    [SerializeField] private bool SpecialPasajir = false;
+    [SerializeField] public bool SpecialPasajir = false;
 
     public Transform busss;
     public float criticalDistance = 15f;

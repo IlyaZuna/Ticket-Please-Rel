@@ -41,11 +41,11 @@ public class BedInteraction : MonoBehaviour, IInteractable
 
     public void Sleep()
     {
-        
-       
-            // Перезагрузка сцены (если нужно "новое утро")
-    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-       
+
+
+        // Перезагрузка сцены (если нужно "новое утро")
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
 
         // Дополнительные эффекты (затемнение, звук и т.д.)
     }

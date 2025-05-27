@@ -46,6 +46,11 @@ public class DriverIncome : MonoBehaviour
         _Sell = true;
 
     }
+    public int Incame()
+    {
+        return (income);
+
+    }
 
 }
 

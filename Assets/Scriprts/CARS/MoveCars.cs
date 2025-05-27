@@ -9,7 +9,7 @@ public class CircularWaypointMovement : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 10f;
     public float rotationSpeed = 120f;
-    public float stoppingDistance = 0.5f;
+    public float stoppingDistance = 1.5f;
 
     private NavMeshAgent agent;
     private int currentWaypointIndex = 0;
