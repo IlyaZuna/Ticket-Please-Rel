@@ -25,6 +25,7 @@ public class FirstPersonController : MonoBehaviour
 
     [Header("Interaction")]
     public float interactionDistance = 5f;
+    public HintSystem hintSystem; // Ссылка на систему подсказок
 
     private CharacterController controller;
     private Animator animator;
@@ -42,6 +43,11 @@ public class FirstPersonController : MonoBehaviour
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        if (hintSystem == null)
+        {
+            Debug.LogError("HintSystem is not assigned in the Inspector!");
+        }
     }
 
     void Update()
@@ -73,7 +79,7 @@ public class FirstPersonController : MonoBehaviour
         isGrounded = controller.isGrounded;
         if (isGrounded && playerVelocity.y < 0)
         {
-            playerVelocity.y = -2f; // Небольшая "прижимная" сила к земле
+            playerVelocity.y = -2f;
         }
 
         float horizontal = Input.GetAxis("Horizontal");
@@ -86,11 +92,9 @@ public class FirstPersonController : MonoBehaviour
         Vector3 move = transform.forward * vertical + transform.right * horizontal;
         controller.Move(move * speed * Time.deltaTime);
 
-        // Гравитация
         playerVelocity.y += gravity * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
 
-        // Анимации (если есть)
         if (animator != null)
         {
             animator.SetBool("isWalking", isMoving && !isSprinting);
@@ -111,21 +115,18 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!isGrounded || !isMoving)
         {
-            // Возвращаем камеру в исходное положение
             Vector3 cameraZPos = playerCamera.transform.localPosition;
             cameraZPos.y = Mathf.Lerp(cameraZPos.y, defaultCameraYPos, Time.deltaTime * 5f);
             playerCamera.transform.localPosition = cameraZPos;
             return;
         }
 
-        // Выбираем параметры покачивания в зависимости от бега
         float bobSpeed = Input.GetKey(KeyCode.LeftShift) ? sprintBobSpeed : walkBobSpeed;
         float bobAmount = Input.GetKey(KeyCode.LeftShift) ? sprintBobAmount : walkBobAmount;
 
         headBobTimer += Time.deltaTime * bobSpeed;
         float newYPos = defaultCameraYPos + Mathf.Sin(headBobTimer) * bobAmount;
 
-        // Плавное изменение позиции камеры
         Vector3 cameraPos = playerCamera.transform.localPosition;
         cameraPos.y = Mathf.Lerp(cameraPos.y, newYPos, Time.deltaTime * 10f);
         playerCamera.transform.localPosition = cameraPos;
@@ -137,11 +138,25 @@ public class FirstPersonController : MonoBehaviour
         {
             if (hit.collider.CompareTag("BusStop")) return;
 
+            // Показываем подсказку через HintSystem
+            if (hintSystem != null)
+            {
+                hintSystem.ShowHint(hit.collider.gameObject);
+            }
+
             Debug.Log($"Рэй попал в объект: {hit.collider.name}");
 
             if (Input.GetKeyDown(KeyCode.E) && hit.collider.TryGetComponent(out IInteractable interactable))
             {
                 interactable.Interact();
+            }
+        }
+        else
+        {
+            // Скрываем подсказку, если луч никуда не попал
+            if (hintSystem != null)
+            {
+                hintSystem.HideHint();
             }
         }
     }
