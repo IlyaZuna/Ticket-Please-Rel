@@ -45,7 +45,11 @@ public class WayTest : MonoBehaviour
     private int _indexBusStop = -1;
     [SerializeField] private int _indexSpawn = 0;
     [SerializeField] private int _indexOUT;
-    [SerializeField] private bool SpecialStop =false;
+    [SerializeField] private bool SpecialPasajir = false;
+
+    public Transform busss;
+    public float criticalDistance = 15f;
+    public float uncriticalDistance = 20f;
 
     void Start()
     {
@@ -58,11 +62,17 @@ public class WayTest : MonoBehaviour
     }
     void Update()
     {
-        if (SpecialStop) { return; }
+        if (SpecialPasajir) { return; }
         AnimationSost();
         if (!_Inbus && !_Outbus)
         {
             Walk();
+            return;
+        }
+        if (Vector3.Distance(transform.position, busss.position) > criticalDistance && (Vector3.Distance(transform.position, busss.position) <  uncriticalDistance))
+        {
+            Debug.Log("Очистил точки");
+            findWay.ClearPoints();
             return;
         }
         if (_indexBusStop > _indexOUT && _indexOUT != 0)
@@ -192,7 +202,7 @@ public class WayTest : MonoBehaviour
             return;
         }
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, target.position) < 0.1f)
+        if (Vector3.Distance(transform.position, target.position) < 1f)
         {
             if (index == stayIndex && !MoneyGive)
             {
@@ -318,7 +328,7 @@ public class WayTest : MonoBehaviour
         target = findWay.Gotarget(_indexOUT);
         agent.SetDestination(target.position);
         animator.Walk();
-        if (!agent.pathPending && agent.remainingDistance < 1f)
+        if (!agent.pathPending && agent.remainingDistance < 2f)
         {
             ButtonDoor.OnButtonPressed -= ToggleDoor;
             Destroy(gameObject);
@@ -327,7 +337,7 @@ public class WayTest : MonoBehaviour
     public void SetIndex(int index, bool lastStop)
     {
         _indexSpawn = index;
-        SpecialStop = false;
+        SpecialPasajir = false;
 
         if (lastStop)
         {
