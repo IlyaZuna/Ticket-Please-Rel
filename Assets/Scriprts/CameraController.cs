@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : MonoBehaviour
+{
     public float mouseSensitivity = 100f;  // Чувствительность мыши
     public Transform playerBody;           // Ссылка на автобус (корпус)
 
@@ -23,7 +25,11 @@ public class CameraController : MonoBehaviour {
     // Список тегов, которые нужно игнорировать для взаимодействия
     [SerializeField] private string[] ignoredTags = { "BusStop" };
 
-    void Start() {
+    // Ссылка на систему подсказок
+    [SerializeField] private HintSystem hintSystem; // Ссылка на HintSystem
+
+    void Start()
+    {
         // Блокируем курсор в центре экрана
         Cursor.lockState = CursorLockMode.Locked;
 
@@ -34,12 +40,20 @@ public class CameraController : MonoBehaviour {
         highlightMaterial = new Material(Shader.Find("Custom/HighlightShader"));
         highlightMaterial.SetColor("_OutlineColor", outlineColor);
         highlightMaterial.SetFloat("_OutlineWidth", outlineWidth);
+
+        if (hintSystem == null)
+        {
+            Debug.LogError("HintSystem is not assigned in the Inspector for CameraController!");
+        }
     }
+
     private void Update()
     {
         RayCaster();
     }
-    void LateUpdate() {
+
+    void LateUpdate()
+    {
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
@@ -54,12 +68,12 @@ public class CameraController : MonoBehaviour {
 
         // Применяем повороты к камере
         transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-        
     }
 
-    private void RayCaster() {
+    private void RayCaster()
+    {
         Vector3 rayOrigin = playerCamera.transform.position;
-        Vector3 rayDirection = playerCamera.transform.forward; // Направление вперед от камеры
+        Vector3 rayDirection = playerCamera.transform.forward; // Направление вперёд от камеры
 
         Ray ray = new Ray(rayOrigin, rayDirection);
         int layerMask = ~LayerMask.GetMask("Bus"); // Игнорируем слой "Bus"
@@ -78,6 +92,7 @@ public class CameraController : MonoBehaviour {
                 if (hit.collider.CompareTag(tag))
                 {
                     ResetHighlight(); // Сбрасываем подсветку
+                    if (hintSystem != null) hintSystem.HideHint();
                     return; // Выходим из метода
                 }
             }
@@ -88,6 +103,7 @@ public class CameraController : MonoBehaviour {
                 if (hit.collider.CompareTag(tag))
                 {
                     ResetHighlight();
+                    if (hintSystem != null) hintSystem.HideHint();
                     return;
                 }
             }
@@ -104,6 +120,12 @@ public class CameraController : MonoBehaviour {
                     currentRenderer.material = highlightMaterial; // Применяем подсветку
                     lastHighlightedRenderer = currentRenderer;
                 }
+            }
+
+            // Показываем подсказку, если объект имеет компонент HintData
+            if (hintSystem != null)
+            {
+                hintSystem.ShowHint(hit.collider.gameObject);
             }
 
             Debug.Log($"Рэй попал в объект: {hit.collider.name}");
@@ -124,12 +146,14 @@ public class CameraController : MonoBehaviour {
         }
         else
         {
-            // Если луч ни во что не попал, сбрасываем подсветку
+            // Если луч ни во что не попал, сбрасываем подсветку и скрываем подсказку
             ResetHighlight();
+            if (hintSystem != null) hintSystem.HideHint();
         }
     }
 
-    private void ResetHighlight() {
+    private void ResetHighlight()
+    {
         if (lastHighlightedRenderer != null)
         {
             lastHighlightedRenderer.material = originalMaterial;
@@ -137,7 +161,8 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    void OnDestroy() {
+    void OnDestroy()
+    {
         // Очищаем созданный материал при уничтожении объекта
         if (highlightMaterial != null)
         {
