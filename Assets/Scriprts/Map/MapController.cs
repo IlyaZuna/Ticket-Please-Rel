@@ -64,7 +64,7 @@ public class MapController : MonoBehaviour
 
     void Update()
     {
-        // ќткрытие карты по клавише "M"
+        // ќткрытие/закрытие карты по клавише "M"
         if (Input.GetKeyDown(KeyCode.M))
         {
             if (!mapCanvas.activeSelf)
@@ -80,7 +80,8 @@ public class MapController : MonoBehaviour
         }
     }
 
-    void OpenMap()
+    // ѕубличный метод дл€ открыти€ карты (используетс€ клавишей M и через взаимодействие)
+    public void OpenMap()
     {
         mapCanvas.SetActive(true);
         Time.timeScale = 0f; // —тавим игру на паузу
