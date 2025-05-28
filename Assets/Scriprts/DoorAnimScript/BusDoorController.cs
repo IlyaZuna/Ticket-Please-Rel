@@ -15,7 +15,7 @@ public class BusDoorController : MonoBehaviour
         {
             Debug.LogError("Animator не найден! Добавьте компонент Animator к двери.");
         }
-        ButtonDoor.OnButtonPressed += ToggleDoor;
+        
     }
     public void ToggleDoor()
     {        

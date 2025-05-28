@@ -147,4 +147,8 @@ public class BusController : MonoBehaviour
         FuilOut();
 
     }
+    public bool CheckDoor()
+    {
+        return areDoorsOpen;
+    }   
 }

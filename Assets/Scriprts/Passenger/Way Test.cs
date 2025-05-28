@@ -48,8 +48,8 @@ public class WayTest : MonoBehaviour
     [SerializeField] public bool SpecialPasajir = false;
 
     public Transform busss;
-    public float criticalDistance = 15f;
-    public float uncriticalDistance = 20f;
+    public float criticalDistance = 10f;
+    public float uncriticalDistance = 15f;
 
     void Start()
     {
@@ -58,7 +58,7 @@ public class WayTest : MonoBehaviour
         findWay = FindObjectOfType<FindWay>();
 
 
-        ButtonDoor.OnButtonPressed += ToggleDoor;
+        
     }
     void Update()
     {
@@ -72,8 +72,13 @@ public class WayTest : MonoBehaviour
         if (Vector3.Distance(transform.position, busss.position) > criticalDistance && (Vector3.Distance(transform.position, busss.position) <  uncriticalDistance))
         {
             Debug.Log("Очистил точки");
+
             findWay.ClearPoints();
             return;
+        }
+        else
+        {
+            CheckDoor();
         }
         if (_indexBusStop > _indexOUT && _indexOUT != 0)
         {
@@ -314,13 +319,9 @@ public class WayTest : MonoBehaviour
 
     }
 
-    public void ToggleDoor()
+    public void CheckDoor()
     {
-        if (!_areDoorsOpen)
-        {
-            _areDoorsOpen = true;
-        }
-        else { _areDoorsOpen = false; }
+        _areDoorsOpen = busController.CheckDoor();
     }
 
     private void Walk()
@@ -330,7 +331,7 @@ public class WayTest : MonoBehaviour
         animator.Walk();
         if (!agent.pathPending && agent.remainingDistance < 0.1f)
         {
-            ButtonDoor.OnButtonPressed -= ToggleDoor;
+            
             Destroy(gameObject);
         }
     }
