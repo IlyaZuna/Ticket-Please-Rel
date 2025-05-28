@@ -171,4 +171,11 @@ public class FindWay : MonoBehaviour
     {
         return points3[index].transform;
     }
+    public void ClearPoints()
+    {
+        points[0].Release();
+        points[1].Release();
+        points[2].Release();
+        points[3].Release();
+    }
 }

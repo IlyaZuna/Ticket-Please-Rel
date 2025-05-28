@@ -95,11 +95,11 @@ public class KeyON : MonoBehaviour, IInteractable
             Debug.LogError("Ignition Key is not assigned in the Inspector!");
         }
         else
-        {          
+        {
             insertedPosition = keyInsertPoint.position; // Позиция вставленного ключа
             removedPosition = insertedPosition + insertOffset; // Позиция перед вставкой/после извлечения
             ignitionKey.transform.position = removedPosition; // Начальная позиция
-            
+
         }
     }
     private IEnumerator InsertKey()

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class ManagerStats : MonoBehaviour
 {
-
+    public int _pasengerallSkore;
     public int _pasengerSkore;
+    public int day;
+    private DriverIncome driverIncome;
+    public int allincame;
+
     void Start()
     {
         
@@ -16,21 +20,26 @@ public class ManagerStats : MonoBehaviour
     {
         
     }
-    public bool CheckQwest(int Qwest)
-    {
-        if(Qwest <= _pasengerSkore)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
     public void addPasengerSkore()
     {
         _pasengerSkore++;
         return;
     }
-    public int getPasengerSkore() {  return _pasengerSkore; }
+    public void addPasengerallSkore()
+    {
+        _pasengerallSkore++;
+        return;
+    }
+    public void addDay()
+    {
+        day++;
+        addPasengerallSkore();
+        allincame = driverIncome.Incame();
+        return;
+    }
+    public int getPasengerSkore()
+    {
+        return _pasengerSkore;
+    }
+
 }
