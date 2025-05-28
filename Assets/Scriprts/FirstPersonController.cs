@@ -35,6 +35,7 @@ public class FirstPersonController : MonoBehaviour
     private bool isMoving;
     private bool _lockState = false;
     private MapController mapController; // Ссылка на MapController
+    private DialogueSystem dialogueSystem; // Ссылка на систему диалогов
 
     void Start()
     {
@@ -45,10 +46,20 @@ public class FirstPersonController : MonoBehaviour
         // Находим MapController в сцене
         mapController = FindObjectOfType<MapController>();
 
-        // Курсор управляется в MapController, здесь оставляем начальное состояние
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // Находим DialogueSystem в сцене
+        dialogueSystem = FindObjectOfType<DialogueSystem>();
+        if (dialogueSystem == null)
+        {
+            Debug.LogError("DialogueSystem not found in scene!");
+        }
 
+        // Проверяем, что камера привязана
+        if (playerCamera == null)
+        {
+            Debug.LogError("Player Camera is not assigned in FirstPersonController!");
+        }
+
+        // Курсор больше не управляется здесь, это делается в DialogueSystem и MapController
         if (hintSystem == null)
         {
             Debug.LogError("HintSystem is not assigned in the Inspector!");
@@ -156,6 +167,10 @@ public class FirstPersonController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.E) && hit.collider.TryGetComponent(out IInteractable interactable))
             {
+                // Блокируем движение игрока перед началом диалога
+                LockStatePlayer();
+
+                // Запускаем взаимодействие (диалог)
                 interactable.Interact();
             }
         }
