@@ -34,6 +34,7 @@ public class FirstPersonController : MonoBehaviour
     private bool isGrounded;
     private bool isMoving;
     private bool _lockState = false;
+    private MapController mapController; // Ссылка на MapController
 
     void Start()
     {
@@ -41,6 +42,10 @@ public class FirstPersonController : MonoBehaviour
         animator = GetComponent<Animator>();
         defaultCameraYPos = playerCamera.transform.localPosition.y;
 
+        // Находим MapController в сцене
+        mapController = FindObjectOfType<MapController>();
+
+        // Курсор управляется в MapController, здесь оставляем начальное состояние
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
@@ -54,6 +59,9 @@ public class FirstPersonController : MonoBehaviour
     {
         if (!_lockState)
         {
+            // Проверяем, открыта ли карта
+            if (mapController != null && mapController.IsMapOpen()) return;
+
             HandleRotation();
             HandleMovement();
             HandleJump();

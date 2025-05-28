@@ -8,6 +8,10 @@ TagManager:
   - Passajir
   - BusStop
   - RaycastIgnore
+  - FuelStation
+  - House
+  - Dispatch
+  - Workshop
   layers:
   - Default
   - TransparentFX

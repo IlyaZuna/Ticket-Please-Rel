@@ -28,6 +28,8 @@ public class CameraController : MonoBehaviour
     // Ссылка на систему подсказок
     [SerializeField] private HintSystem hintSystem; // Ссылка на HintSystem
 
+    private MapController mapController; // Ссылка на MapController
+
     void Start()
     {
         // Блокируем курсор в центре экрана
@@ -45,15 +47,24 @@ public class CameraController : MonoBehaviour
         {
             Debug.LogError("HintSystem is not assigned in the Inspector for CameraController!");
         }
+
+        // Находим MapController в сцене
+        mapController = FindObjectOfType<MapController>();
     }
 
     private void Update()
     {
+        // Проверяем, открыта ли карта
+        if (mapController != null && mapController.IsMapOpen()) return;
+
         RayCaster();
     }
 
     void LateUpdate()
     {
+        // Проверяем, открыта ли карта
+        if (mapController != null && mapController.IsMapOpen()) return;
+
         // Получаем движение мыши
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
