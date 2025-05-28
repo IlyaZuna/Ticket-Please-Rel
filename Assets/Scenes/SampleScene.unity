@@ -33392,7 +33392,7 @@ MonoBehaviour:
   keyInsertPoint: {fileID: 1192381430}
   rotationSpeed: 2
   insertSpeed: 2
-  insertOffset: {x: 0, y: 0, z: 0.1}
+  insertOffset: {x: 0, y: 0, z: 0}
   currentIgnitionState: 0
 --- !u!65 &853246957
 BoxCollider:
@@ -52788,11 +52788,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4364463176258589032, guid: 19fe085912678b740972ccc53153315f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00001
+      value: -0.000051
       objectReference: {fileID: 0}
     - target: {fileID: 4364463176258589032, guid: 19fe085912678b740972ccc53153315f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00064
+      value: -0.000357
       objectReference: {fileID: 0}
     - target: {fileID: 4364463176258589032, guid: 19fe085912678b740972ccc53153315f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -52860,11 +52860,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9090475953507026380, guid: 19fe085912678b740972ccc53153315f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00003
+      value: -0.000031
       objectReference: {fileID: 0}
     - target: {fileID: 9090475953507026380, guid: 19fe085912678b740972ccc53153315f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00078
+      value: -0.000816
       objectReference: {fileID: 0}
     - target: {fileID: 9090475953507026380, guid: 19fe085912678b740972ccc53153315f, type: 3}
       propertyPath: m_LocalPosition.z
