@@ -87163,7 +87163,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1933499201
 Light:
   m_ObjectHideFlags: 0
@@ -87182,8 +87182,8 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
-    m_Resolution: 0
+    m_Type: 1
+    m_Resolution: 3
     m_CustomResolution: -1
     m_Strength: 1
     m_Bias: 0.22
@@ -100452,7 +100452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1622957548945138731, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1771647747235845166, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: m_Enabled
