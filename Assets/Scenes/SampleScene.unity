@@ -3618,7 +3618,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &107048723
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3950,7 +3953,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &116077659
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -19300,7 +19306,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &537997987
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -24732,7 +24741,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &670802849
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -26963,7 +26975,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &722439794
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -35931,7 +35946,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!114 &925593992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45296,7 +45314,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &1146365125
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -63201,7 +63222,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &1510064435
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -71014,7 +71038,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &1674090451
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -73495,7 +73522,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &1726569282
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -82730,7 +82760,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &1911261142
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -86118,7 +86151,10 @@ MonoBehaviour:
   _areDoorsOpen: 0
   _indexSpawn: 50
   _indexOUT: 50
-  SpecialStop: 1
+  SpecialPasajir: 0
+  busss: {fileID: 7059362161628317907}
+  criticalDistance: 15
+  uncriticalDistance: 20
 --- !u!136 &1960921944
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -87689,7 +87725,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d104444aa294448a65e274984c2902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _pasengerallSkore: 0
   _pasengerSkore: 0
+  day: 0
+  allincame: 0
 --- !u!4 &1982568223
 Transform:
   m_ObjectHideFlags: 0
