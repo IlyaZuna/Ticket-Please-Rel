@@ -12,6 +12,7 @@ TagManager:
   - House
   - Dispatch
   - Workshop
+  - Chief
   layers:
   - Default
   - TransparentFX

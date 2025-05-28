@@ -12,7 +12,6 @@ public class MapController : MonoBehaviour
     [SerializeField] private RectTransform[] stopIcons; // Иконки остановок
     [SerializeField] private RectTransform[] buildingIcons; // Иконки зданий (заправка, мастерская и т.д.)
     [SerializeField] private TextMeshProUGUI[] buildingLabels; // Подписи зданий
-    [SerializeField] private LineRenderer routeLine; // Линия маршрута от автобуса до ближайшей остановки
 
     private GameObject player; // Объект игрока
     private GameObject bus; // Объект автобуса
@@ -61,13 +60,6 @@ public class MapController : MonoBehaviour
         {
             AutoAlignMapOffset();
         }
-
-        // Инициализируем линию маршрута
-        routeLine.positionCount = 2;
-        routeLine.startWidth = 5f;
-        routeLine.endWidth = 5f;
-        routeLine.startColor = Color.green; // Устанавливаем цвет линии
-        routeLine.endColor = Color.green;
     }
 
     void Update()
@@ -127,9 +119,6 @@ public class MapController : MonoBehaviour
         {
             UpdateIconPosition(buildings[i], buildingIcons[i]);
         }
-
-        // Обновляем маршрут до ближайшей остановки
-        UpdateRoute();
     }
 
     void UpdateIconPosition(GameObject worldObject, RectTransform icon)
@@ -148,46 +137,6 @@ public class MapController : MonoBehaviour
 
         // Устанавливаем позицию иконки
         icon.anchoredPosition = mapPos;
-    }
-
-    void UpdateRoute()
-    {
-        if (bus == null || stops.Length == 0) return;
-
-        // Находим ближайшую остановку по маршруту (минимальный indexStop)
-        GameObject nearestStop = null;
-        int minIndex = int.MaxValue;
-        foreach (var stop in stops)
-        {
-            BusStopTrigger stopTrigger = stop.GetComponent<BusStopTrigger>();
-            if (stopTrigger != null && stopTrigger.indexStop < minIndex)
-            {
-                minIndex = stopTrigger.indexStop;
-                nearestStop = stop;
-            }
-        }
-
-        if (nearestStop == null) return;
-
-        // Преобразуем позиции автобуса и остановки в координаты карты
-        Vector2 busWorldPos = new Vector2(bus.transform.position.x, bus.transform.position.z);
-        Vector2 stopWorldPos = new Vector2(nearestStop.transform.position.x, nearestStop.transform.position.z);
-        Vector2 busMapPos = new Vector2(
-            (busWorldPos.x - mapOffset.x) * mapScaleX,
-            (busWorldPos.y - mapOffset.y) * mapScaleY
-        );
-        Vector2 stopMapPos = new Vector2(
-            (stopWorldPos.x - mapOffset.x) * mapScaleX,
-            (stopWorldPos.y - mapOffset.y) * mapScaleY
-        );
-
-        // Применяем вращение к позициям маршрута
-        busMapPos = RotatePointAroundPivot(busMapPos, Vector2.zero, markerRotation);
-        stopMapPos = RotatePointAroundPivot(stopMapPos, Vector2.zero, markerRotation);
-
-        // Устанавливаем позиции линии маршрута
-        routeLine.SetPosition(0, new Vector3(busMapPos.x, busMapPos.y, -1f)); // Начало (автобус)
-        routeLine.SetPosition(1, new Vector3(stopMapPos.x, stopMapPos.y, -1f)); // Конец (остановка)
     }
 
     Vector2 RotatePointAroundPivot(Vector2 point, Vector2 pivot, float angle)
