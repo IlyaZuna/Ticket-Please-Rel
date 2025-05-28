@@ -37,5 +37,9 @@ public class ManagerStats : MonoBehaviour
         allincame = driverIncome.Incame();
         return;
     }
+    public int getPasengerSkore()
+    {
+        return _pasengerSkore;
+    }
 
 }
