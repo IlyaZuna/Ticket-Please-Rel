@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Size: {x: 13.504364, y: 3, z: 5.719371}
   m_Center: {x: -0.80995584, y: 1, z: 0.8596854}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000
 --- !u!1 &6050302887404778298
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,4 +180,4 @@ MonoBehaviour:
   m_Size: {x: 21.295172, y: 3, z: 13.170582}
   m_Center: {x: -0.9610224, y: 1, z: -2.757}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000

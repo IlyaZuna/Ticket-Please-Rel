@@ -131,4 +131,4 @@ MonoBehaviour:
   m_Size: {x: 13.57538, y: 3, z: 21.725513}
   m_Center: {x: 0.9360225, y: 1, z: 0.56469536}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000

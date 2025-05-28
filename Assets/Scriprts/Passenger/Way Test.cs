@@ -202,7 +202,7 @@ public class WayTest : MonoBehaviour
             return;
         }
         transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
-        if (Vector3.Distance(transform.position, target.position) < 1f)
+        if (Vector3.Distance(transform.position, target.position) < 0.3f)
         {
             if (index == stayIndex && !MoneyGive)
             {
@@ -328,7 +328,7 @@ public class WayTest : MonoBehaviour
         target = findWay.Gotarget(_indexOUT);
         agent.SetDestination(target.position);
         animator.Walk();
-        if (!agent.pathPending && agent.remainingDistance < 2f)
+        if (!agent.pathPending && agent.remainingDistance < 0.1f)
         {
             ButtonDoor.OnButtonPressed -= ToggleDoor;
             Destroy(gameObject);

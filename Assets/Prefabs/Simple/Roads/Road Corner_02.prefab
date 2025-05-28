@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Size: {x: 7.247501, y: 3, z: 10.439549}
   m_Center: {x: 3.3050892, y: 1, z: -1.698389}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000
 --- !u!1 &2365939908660874716
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Size: {x: 17.068678, y: 3, z: 7.111198}
   m_Center: {x: -1.6054993, y: 1, z: -3.3625648}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000
 --- !u!1 &3525311588920117431
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +230,7 @@ MonoBehaviour:
   m_Size: {x: 7.247501, y: 3, z: 10.401764}
   m_Center: {x: 3.3050892, y: 1, z: -1.7172818}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000
 --- !u!1 &5434316810785919564
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,4 +278,4 @@ MonoBehaviour:
   m_Size: {x: 17.068678, y: 3, z: 7.111198}
   m_Center: {x: -1.6054993, y: 1, z: -3.3625648}
   m_Area: 1
-  m_AffectedAgents: ffffffff
+  m_AffectedAgents: 00000000
