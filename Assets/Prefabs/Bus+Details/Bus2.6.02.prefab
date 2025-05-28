@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28bcfdbb56fd214a91714150a4d096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!95 &4189222686107574247
 Animator:
   serializedVersion: 5
@@ -1421,6 +1422,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28bcfdbb56fd214a91714150a4d096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!95 &434140949250396131
 Animator:
   serializedVersion: 5
@@ -4128,6 +4130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28bcfdbb56fd214a91714150a4d096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!95 &589251735231053919
 Animator:
   serializedVersion: 5
@@ -5992,6 +5995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e28bcfdbb56fd214a91714150a4d096a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!95 &1410899911062303040
 Animator:
   serializedVersion: 5
@@ -6657,6 +6661,7 @@ MonoBehaviour:
   - RaycastIgnore
   ignoredTags:
   - BusStop
+  hintSystem: {fileID: 0}
 --- !u!1 &6513780101869665754
 GameObject:
   m_ObjectHideFlags: 0
