@@ -6,6 +6,8 @@ public class BusDoorController : MonoBehaviour
 {
     // Ссылка на компонент Animator
     [SerializeField]private Animator animator;
+    [SerializeField] private AudioClip open;
+    private AudioSource audioSource;
     // Имя триггера для открытия дверей
     private const string OpenDoorsTrigger = "OpenDoors";
     private void Start()
@@ -16,9 +18,12 @@ public class BusDoorController : MonoBehaviour
             Debug.LogError("Animator не найден! Добавьте компонент Animator к двери.");
         }
         
+
+
     }
     public void ToggleDoor()
     {        
         animator.SetTrigger(OpenDoorsTrigger); // Активируем триггер для анимации
+       
     }
 }
