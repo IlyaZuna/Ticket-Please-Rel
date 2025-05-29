@@ -11,7 +11,7 @@ public class ButtonDoor : MonoBehaviour, IInteractable
     [SerializeField] private BusDoorController busDoorController2;
     [SerializeField] private BusDoorController busDoorController3;
     [SerializeField] private BusDoorController busDoorController4;
-    public static event Action OnButtonPressed;
+   
     public void Interact()
     {
         busDoorController1.ToggleDoor();

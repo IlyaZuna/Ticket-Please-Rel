@@ -16,6 +16,7 @@ public class KeyON : MonoBehaviour, IInteractable
     private bool isAnimating = false;          // Флаг анимации (вставка, поворот, извлечение)
     private Vector3 insertedPosition;          // Позиция ключа после вставки
     private Vector3 removedPosition;           // Позиция ключа перед вставкой/после извлечения
+    [SerializeField]BusSoundController soundController;
 
     public enum IgnitionState
     {
@@ -73,6 +74,7 @@ public class KeyON : MonoBehaviour, IInteractable
                 targetRotation = Quaternion.Euler(0, 90, 0); // Поворот против часовой на -90 градусов
                 StartCoroutine(RotateKey());
                 StartEngine();
+                soundController.PlayEngineStart();
                 break;
 
             case IgnitionState.Start:
@@ -81,6 +83,7 @@ public class KeyON : MonoBehaviour, IInteractable
                 StartCoroutine(RotateKey());
                 StartCoroutine(RemoveKey());
                 Off();
+                soundController.StopEngine();
                 break;
         }
     }
