@@ -18,6 +18,6 @@ public class ButtonDoor : MonoBehaviour, IInteractable
         busDoorController2.ToggleDoor();
         busDoorController3.ToggleDoor();
         busDoorController4.ToggleDoor();
-        controller.areDoorsOpen = true;
+        controller.areDoorsOpen = !controller.areDoorsOpen;
     }
 }
