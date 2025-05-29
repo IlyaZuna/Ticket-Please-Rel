@@ -8,6 +8,8 @@ public class CameraController : MonoBehaviour
     public float mouseSensitivity = 100f;
     public Transform playerBody;
 
+    [SerializeField] private ControlPanel controlPanel;
+
     private float xRotation = 0f;
     private float yRotation = 180f;
     [SerializeField] private Camera playerCamera;
@@ -40,12 +42,18 @@ public class CameraController : MonoBehaviour
 
     private void Update()
     {
+        // Проверяем, не на паузе ли игра 
+        //if(controlPanel != null && controlPanel.IsPaused()) return; //чек
+        if (Time.timeScale == 0) return;
+
         if (mapController != null && mapController.IsMapOpen()) return;
         RayCaster();
     }
 
     void LateUpdate()
     {
+        if (Time.timeScale == 0)
+            //if (controlPanel != null && controlPanel.IsPaused()) return; // чек
         if (mapController != null && mapController.IsMapOpen()) return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;

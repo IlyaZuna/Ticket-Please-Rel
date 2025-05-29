@@ -3,6 +3,9 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
 {
+    [Header("Control Panel")]
+    public ControlPanel controlPanel;
+
     [Header("Movement Settings")]
     public float walkSpeed = 5f;
     public float sprintSpeed = 10f;
@@ -68,6 +71,8 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
+        // Проверяем, открыта ли панель управления
+        //if (controlPanel != null && controlPanel.IsPaused()) return; //чек
         if (!_lockState)
         {
             // Проверяем, открыта ли карта
@@ -184,5 +189,9 @@ public class FirstPersonController : MonoBehaviour
         }
     }
 
+    public bool IsMovementLocked()
+    {
+        return _lockState;
+    }
     public void LockStatePlayer() => _lockState = !_lockState;
 }
