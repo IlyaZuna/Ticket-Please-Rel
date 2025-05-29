@@ -35,6 +35,7 @@ public class BusController : MonoBehaviour
     public bool s = false;      // Находится ли автобус на остановке
     public int currentStopIndex = -1; // Индекс текущей остановки
     private BusStopTrigger[] stops; // Массив всех остановок на сцене
+    public BusSoundController busSoundController;
 
     void Start()
     {
@@ -111,7 +112,16 @@ public class BusController : MonoBehaviour
         // Движение автобуса
         float move = -Input.GetAxis("Vertical") * moveSpeed; // W/S или стрелки
         float turn = Input.GetAxis("Horizontal") * turnSpeed; // A/D или стрелки
+        //if(move <= 0&& rb.velocity.magnitude * 3.6f >1)
+       // {
 
+         //   busSoundController.PlayEngineRunning();
+       // }
+       // else if (rb.velocity.magnitude * 3.6f < 1&& move >= 0)
+       // {
+       //     busSoundController.Stop();
+        //    busSoundController.PlayEngineIdle();
+       // }
         if (currentFuel <= 0)
         {
             move = 0; // Останавливаем автобус

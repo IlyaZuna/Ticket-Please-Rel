@@ -4230,7 +4230,7 @@ GameObject:
   - component: {fileID: 106518787}
   m_Layer: 0
   m_Name: StrelkaFuel
-  m_TagString: Untagged
+  m_TagString: Bus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7355,7 +7355,7 @@ GameObject:
   - component: {fileID: 171510951}
   m_Layer: 0
   m_Name: StrelkaTemp
-  m_TagString: Untagged
+  m_TagString: Bus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20969,7 +20969,7 @@ GameObject:
   - component: {fileID: 488096016}
   m_Layer: 0
   m_Name: StrelkaTaxometr
-  m_TagString: Untagged
+  m_TagString: Bus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30146,6 +30146,7 @@ MonoBehaviour:
   insertSpeed: 2
   insertOffset: {x: 0, y: 0, z: 0}
   currentIgnitionState: 0
+  soundController: {fileID: 1137689267}
 --- !u!65 &682449588
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54138,6 +54139,153 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 2509cc5763ca17f4598bf61fd585a93e, type: 3}
   m_PrefabInstance: {fileID: 1137420495}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1137689264
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1137689265}
+  - component: {fileID: 1137689267}
+  - component: {fileID: 1137689266}
+  m_Layer: 0
+  m_Name: SoundControllerBus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1137689265
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137689264}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7059362161628317907}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1137689266
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137689264}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.14
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &1137689267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137689264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ad09cbd664412b479eb5e53aa137191, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engineStartSound: {fileID: 8300000, guid: 54562bf3bc9efbd499b45bd81b523604, type: 3}
+  engineIdleSound: {fileID: 8300000, guid: 648e612937d426c4f9cb3e4ec6c28540, type: 3}
+  engineGaZ: {fileID: 0}
+  engineRunningSound: {fileID: 8300000, guid: 3c4e9043fa31eb349ab80b4e4215291f, type: 3}
+  engineStop: {fileID: 8300000, guid: 4d5bc20ec895c91438ce2934a6e93c42, type: 3}
+  delayBetweenSounds: 0.1
 --- !u!1 &1141030149
 GameObject:
   m_ObjectHideFlags: 0
@@ -68763,7 +68911,7 @@ GameObject:
   - component: {fileID: 1402827373}
   m_Layer: 0
   m_Name: StrelkaSpeed
-  m_TagString: Untagged
+  m_TagString: Bus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -113151,6 +113299,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: RaycastIgnore
       objectReference: {fileID: 0}
+    - target: {fileID: 1229941453935498277, guid: a33065b5520a99647870e398c3913914, type: 3}
+      propertyPath: m_TagString
+      value: Bus
+      objectReference: {fileID: 0}
     - target: {fileID: 1622957548945138731, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -113763,6 +113915,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7782870623876935239, guid: a33065b5520a99647870e398c3913914, type: 3}
+      propertyPath: m_TagString
+      value: Bus
+      objectReference: {fileID: 0}
     - target: {fileID: 7876584235404005004, guid: a33065b5520a99647870e398c3913914, type: 3}
       propertyPath: newScale.y
       value: 100
@@ -113955,6 +114111,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5216170151499891370, guid: a33065b5520a99647870e398c3913914, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1174375477}
+    - targetCorrespondingSourceObject: {fileID: 5216170151499891370, guid: a33065b5520a99647870e398c3913914, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1137689265}
     - targetCorrespondingSourceObject: {fileID: 2151107952905787899, guid: a33065b5520a99647870e398c3913914, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1778352036}
@@ -115546,6 +115705,7 @@ MonoBehaviour:
   areDoorsOpen: 0
   s: 0
   currentStopIndex: -1
+  busSoundController: {fileID: 1137689267}
 --- !u!65 &7059362161628317919
 BoxCollider:
   m_ObjectHideFlags: 0
