@@ -53,6 +53,6 @@ public class ManagerStats : MonoBehaviour
     // Заглушка для уровня УКП (например, от 1 до 5)
     public int GetUKPLevel()
     {
-        return 100; // Заглушка, можно заменить на реальную логику
+        return 80; // Заглушка, можно заменить на реальную логику
     }
 }
